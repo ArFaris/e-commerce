@@ -1,0 +1,70 @@
+@import '/src/styles/variables.scss';
+@import '/src/styles/global.scss';
+
+.back {
+    display: flex;
+    align-items: stretch;
+    gap: $back-gap;
+    margin-top: $back-margin-top;
+    cursor: pointer;
+
+    &__icon {
+        transform: rotate(90deg);
+    }
+}
+
+.product {
+    display: flex;
+    gap: $detail-gap;
+    margin-inline: auto;
+    margin-bottom: $detail-margin;
+    margin-top: $detail-product-margin-top;
+
+    &__image-wrapper {
+        width: 100%;
+        max-width: $detail-image-width;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: $detail-gap;
+    }
+
+    &__buttons {
+        display: flex;
+        gap: $detail-gap;
+        margin-top: $detail-margin;
+
+        &--right {
+            border: 1px solid $text-secondary;
+            background-color: transparent;
+
+            &:hover {
+                background-color: $button-primary-bg-hover;
+            }
+
+            &:active {
+                background-color: $button-primary-bg-active;
+            }
+        }
+    }
+
+    &__description {
+        display: flex;
+        flex-direction: column;
+        gap: $detail-description-gap;
+        margin-bottom: $detail-margin; 
+    }
+}
+
+.products {
+    display: flex;
+    justify-content: space-between;
+    margin-top: $detail-product-margin-top;  
+    margin-bottom: $detail-products-margin-bottom;
+}

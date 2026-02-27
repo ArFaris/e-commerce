@@ -1,0 +1,76 @@
+{
+    "products": [
+        {
+            "id": "product1",
+            "image": "product1",
+            "captionSlot": "Chair",
+            "title": "White Aesthetic Chair",
+            "subtitle": "Combination of wood and wool",
+            "contentSlot": "$63.47"
+        },
+        {
+            "id": "product2",
+            "image": "product2",
+            "captionSlot": "Cupboard",
+            "title": "Wooden Cupboard 3 Row",
+            "subtitle": "Combination of wood and wool",
+            "contentSlot": "$79.88"
+        },
+        {
+            "id": "product3",
+            "image": "product3",
+            "captionSlot": "Chair",
+            "title": "Minimalist Lounge Chair",
+            "subtitle": "Combination of wood and wool",
+            "contentSlot": "$14.74"
+        },
+        {
+            "id": "product4",
+            "image": "product4",
+            "captionSlot": "Table",
+            "title": "Working Desk Setup",
+            "subtitle": "Combination of wood and wool",
+            "contentSlot": "$48.90"
+        },
+        {
+            "id": "product5",
+            "image": "product5",
+            "captionSlot": "Cupboard",
+            "title": "Minimalist White Cupboard",
+            "subtitle": "Combination of wood and wool",
+            "contentSlot": "$40.73"
+        },
+        {
+            "id": "product6",
+            "image": "product6",
+            "captionSlot": "Table",
+            "title": "Wooden Dining Table",
+            "subtitle": "Combination of wood and wool",
+            "contentSlot": "$16.50"
+        },
+        {
+            "id": "product7",
+            "image": "product7",
+            "captionSlot": "Decotarion",
+            "title": "White Minimalist Vase with extemely long title",
+            "subtitle": "Combination of wood and wool Combination of wood and wool Combination of wood and wool Combination of wood and wool",
+            "contentSlot": "$58.39"
+        },
+        {
+            "id": "product8",
+            "image": "product8",
+            "captionSlot": "Decotarion",
+            "title": "Plant With Clay Stand",
+            "subtitle": "Combination of wood and wool",
+            "contentSlot": "$61.49"
+        },
+        {
+            "id": "product9",
+            "image": "product9",
+            "captionSlot": "Decotarion",
+            "title": "Oval Gold Mirror",
+            "subtitle": "Combination of wood and wool",
+            "contentSlot": "$32.43"
+        }
+    ]
+}

@@ -1,0 +1,51 @@
+@import '/src/styles/variables.scss';
+
+.header {
+    width: 100%;
+    height: $header-height;
+    display: flex;
+    padding-inline: $header-padding-inline;
+    justify-content: space-between;
+    align-items: center;
+    outline: 2px solid $header-outline;
+    background-color: $button-primary-text;
+
+    &__links {
+        display: flex;
+        gap: $header-links-gap;
+        position: absolute;
+        left: 0;
+        top: 32px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    &__icons {
+        display: flex;
+        gap: $header-icons-gap;
+    }
+
+    &__link {
+        position: relative;
+        cursor: pointer;
+
+        &:hover {
+            color: $text-accent;
+
+            &::after {
+                display: block;
+            }
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            background-color: $text-accent;
+            width: 100%;
+            height: 2px;
+            left: 0;
+            bottom: -36px;
+            display: none;
+        }
+    }
+}

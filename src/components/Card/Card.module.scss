@@ -1,0 +1,50 @@
+@import '/src/styles/variables.scss';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  max-width: $card-width;
+  min-height: $card-height;
+  width: 100%;
+  background-color: $button-primary-text;
+  text-align: left;
+  transition: $transition;
+  cursor: pointer;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $card-content-gap;
+    padding-inline: $card-content-padding-inline;
+    margin-block: auto;
+    background-color: $button-primary-text;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: $card-text-gap;
+  }
+
+  &__action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &:hover {
+    box-shadow: $box-shadow
+  }
+
+  &__caption {
+    color: $text-secondary;
+    font-weight: 500;
+    font-size: $font-size-p14;
+    line-height: $line-height-p14;
+  }
+
+  &__price {
+    font-size: $font-size-p18;
+    line-height: $line-height-p18;
+  }
+}

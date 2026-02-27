@@ -1,0 +1,19 @@
+@import '/src/styles/variables.scss';
+
+.color {
+    &-secondary {
+        color: $text-secondary;
+    }
+
+    &-header {
+        color: $header-icon;
+    }
+
+    &-primary {
+        color: $text-primary;
+    }
+
+    &-accent {
+        color: $text-accent;
+    }
+}

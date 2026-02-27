@@ -1,0 +1,50 @@
+@import '/src/styles/variables.scss';
+
+.button {
+    --l-button-text: #{$button-primary-text};
+    --l-button-background: #{$text-accent};
+
+    background-color: var(--l-button-background);
+    display: flex;
+    gap: $button-gap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    padding-inline: $button-padd-inline;
+    height: $button-height;
+    transition: background-color 0.3s ease;
+
+    &__text,
+    &__loader {
+        transition: color 0.3s ease;
+    }
+
+    & &__text {
+        color: var(--l-button-text);
+
+        &-white {
+            color: $text-primary;
+        }
+    }
+
+    & &__loader {
+        color: var(--l-button-text);
+    }
+
+    &:hover:not(:disabled) {
+        --l-button-background: #{$button-primary-bg-hover};
+    }
+
+    &:active:not(:disabled) {
+        --l-button-background: #{$button-primary-bg-active};
+    }
+
+    &:disabled {
+        pointer-events: none;
+    }
+
+    &_disabled {
+        --l-button-background: #{$button-primary-bg-disabled};
+    }
+}

@@ -1,0 +1,23 @@
+@import '/src/styles/variables.scss';
+
+.checkbox input {
+    position: absolute;
+    appearance: none;
+
+    &__box {
+        height: $checkbox-size;
+        width: $checkbox-size;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $button-primary-text;
+    }
+}
+
+.checkbox input:not(:disabled) + .checkbox__box:hover {
+    box-shadow: inset 0 0 0 1px $text-accent;
+}       
+
+.checkbox input:disabled + .checkbox__box {
+    opacity: 0.5;
+}

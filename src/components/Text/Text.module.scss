@@ -1,0 +1,80 @@
+@import '/src/styles/variables.scss';
+
+.text {
+    font-weight: 400;
+
+    &_view {
+        &-title {
+            font-weight: $font-weight-title;
+            font-size: $font-size-title;
+            line-height: $line-height-title;
+        }
+
+        &-subtitle {
+            font-weight: $font-weight-title;
+            font-size: $font-size-subtitle;
+            line-height: $line-height-subtitle;
+        }
+
+        &-button {
+            font-size: $font-size-button;
+            line-height: $line-height-button;
+        }
+
+        &-p-20 {
+            font-size: $font-size-p20;
+            line-height: $line-height-p20;
+        }
+
+        &-p-18 {
+            font-size: $font-size-p18;
+            line-height: $line-height-p18;
+        }
+
+        &-p-16 {
+            font-size: $font-size-p16;
+            line-height: $line-height-p16;
+        }
+
+        &-p-14 {
+            font-size: $font-size-p14;
+            line-height: $line-height-p14;
+        }
+    }
+
+    &_weight {
+        &-normal {
+            font-weight: 400;
+        }
+
+        &-medium {
+            font-weight: 500;
+        }
+
+        &-bold {
+            font-weight: 700;
+        }
+    }
+
+    &_color {
+        &-primary {
+            color: $text-primary;
+        }
+
+        &-secondary {
+            color: $text-secondary;
+        }
+
+        &-accent {
+            color: $text-accent;
+        }
+    }
+
+    &_multi-elliplsis {
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: var(--max-lines-count);
+    }
+}

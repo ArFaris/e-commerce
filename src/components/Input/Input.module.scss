@@ -1,0 +1,33 @@
+@import '/src/styles/variables.scss';
+
+.input {
+    position: relative;
+
+    &__after {
+        position: absolute;
+        top: 14px;
+        right: 12px;
+    }
+}
+
+.input input:focus:not(:disabled) {
+    border: 1px solid $text-accent;
+    outline: none;
+}
+
+.input input {
+    border: none;
+    min-width: 100%;
+    min-height: $input-height;
+    padding: $input-padding;
+    color: $text-primary;
+}
+
+.input input::placeholder {
+    color: $text-secondary;
+}
+
+.input input:disabled {
+    background-color: $button-primary-text;
+    color: rgba(0, 0, 0, 0.2);
+}

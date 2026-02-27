@@ -1,0 +1,38 @@
+@import '/src/styles/variables.scss';
+
+.multi-dropdown {
+    position: relative;
+    width: 100%;
+
+    &__field {
+        max-width: $multi-dropdown-width;
+    }
+
+    &__options {
+        margin-top: $multi-dropdown-margin-top;
+        position: absolute;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        max-width: $multi-dropdown-width;
+        width: 100%;
+        box-shadow: $box-shadow;
+    }
+
+    &__option {
+        border: none;
+        width: 100%;
+        text-align: left;
+        background-color: $button-primary-text;
+        padding: $multi-dropdown-option-padding;
+        min-height: $multi-dropdown-option-height;
+
+        &_selected {
+            color: $text-accent;
+        }
+
+        &:hover {
+            color: $text-accent;
+        }
+    }
+}
