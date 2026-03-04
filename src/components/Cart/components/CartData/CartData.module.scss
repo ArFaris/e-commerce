@@ -1,0 +1,37 @@
+@import '/src/styles/variables.scss';
+
+.data {
+    display: flex;
+    position: relative;
+    gap: 10px;
+    padding: 8px 10px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    align-items: center;
+
+    &__button {
+        max-width: 50px;
+        max-height: 25px;
+    }
+}
+
+.image {
+    max-width: calc(40% - 10px);
+}
+
+.content {
+    max-width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.icon {
+    position: absolute;
+    top: -3px;
+    right: -5px;
+}

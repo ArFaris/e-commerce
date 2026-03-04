@@ -9,6 +9,9 @@ import MultiDropdown from 'components/MultiDropdown';
 import { type Option } from 'components/MultiDropdown';
 import api from '../../../api/config';
 import { type Product } from '../../../types/product';
+import {  type CollectionModel, getInitialCollectionModel, normalizeCollection } from '../../../shared/collection';
+import React from 'react';
+import { useCartProducts } from 'App/App';
 
 const ProductsPage = () => {
     const [searchText, setSearchText] = useState('');
@@ -16,6 +19,9 @@ const ProductsPage = () => {
     const [currentProducts, setCurrentProducts] = useState<Product[] | []>([]);
     const [options, setOptions] = useState<Option[] | []>([]);
     const [currentOptions, setCurrentOptions] = useState<Option[] | []>([]);
+    const [productsCollection, setProductsCollection] = useState<CollectionModel<string, Product>>(getInitialCollectionModel());
+
+    const {productsInCart, setProductsInCart} = useCartProducts();
 
     useEffect(() => {
         api.get('/products')
@@ -27,13 +33,15 @@ const ProductsPage = () => {
     }, []);
 
     useEffect(() => {
-        if (options.length > 0) return;
+        if (!Array.isArray(products) || options.length > 0) return;
 
         const newOptions: Option[] = [];
         for (let product of products) {
             newOptions.push({value: product.title, key: product.id})
         }
-        console.log('newOptions', newOptions)
+        
+        setProductsCollection(normalizeCollection<string, Product>(products, (product: Product) => product.id));
+        console.log(productsCollection)
         setOptions(newOptions);
     }, [products]);
 
@@ -79,6 +87,26 @@ const ProductsPage = () => {
         }
     }, [searchText])
 
+    const handlerButtonToCartClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: string) => {
+        if (!e.currentTarget.parentElement) {
+            return;
+        }
+        e.stopPropagation();
+        console.log(productsInCart)
+        setProductsInCart(prevCart => {
+            const newCart: CollectionModel<string, {product: Product, count: number}> = {...prevCart};
+
+            if (newCart.entities[id]) {
+                newCart.entities[id] = {product: productsCollection.entities[id], count: prevCart.entities[id].count + 1};
+            } else {
+                newCart.order.push(id);
+                newCart.entities[id] = {product: productsCollection.entities[id], count: 1};
+            }
+
+            return newCart;
+        })
+    };
+
     const navigate = useNavigate();
 
     return (
@@ -116,7 +144,7 @@ const ProductsPage = () => {
                         subtitle={<>{product.subtitle}</>}
                         contentSlot={<>{product.contentSlot}</>}
                         onClick={() => navigate(`/products/${product.id}`)}
-                        actionSlot={<Button style={{width: '155px'}}>Add to Cart</Button>}/>)
+                        actionSlot={<Button style={{width: '155px'}} onClick={(e) => handlerButtonToCartClick(e, product.id)}>Add to Cart</Button>}/>)
                 }
             </div>
         </main>
