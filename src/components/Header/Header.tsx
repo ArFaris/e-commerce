@@ -19,7 +19,7 @@ const linksArr: Link[] = [
     },
     {
         description: "Categories",
-        to: "#"
+        to: "/categories"
     },
     {
         description: "About us",

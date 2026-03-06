@@ -1,0 +1,41 @@
+@import '/src/styles/variables.scss';
+@import '/src/styles/global.scss';
+
+.image {
+    width: 100%;
+    opacity: 0.7;
+    transition: $transition;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    &:hover {
+        filter: grayscale(1);
+    }
+}
+
+.card {
+    width: 360px;
+    min-height: 360px;
+    padding: 48px;
+    position: relative;
+    cursor: pointer;
+    z-index: 11;
+
+    &:hover {
+        .text{
+            opacity: 1;
+        }
+    }
+}
+
+.text {
+    z-index: 11;
+    opacity: 0.7;
+    position: relative;
+
+    &_name {
+        margin-bottom: 10px;
+    }
+}
