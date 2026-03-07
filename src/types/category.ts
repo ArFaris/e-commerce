@@ -1,9 +1,7 @@
-import type { Product } from "./product";
-
-export interface ICategory {
+export type CategoryType = {
     id: number,
     name: string,
     image: string,
     description?: string,
-    products: Product[]
+    text?: string
 }

@@ -1,0 +1,42 @@
+import type { CategoryType } from "types/category";
+import Category from "./components";
+import s from './CategoriesPage.module.scss';
+import { observer } from "mobx-react-lite";
+import { useNavigate } from "react-router";
+import { useEffect } from "react";
+import api from '../../../api/config';
+import categoryStore from 'store/CategoryStore.ts';
+import cn from 'classnames';
+
+const CategoriesPage = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        api.get('/categories')
+            .then(response => {
+                categoryStore.setCategories(response.data);
+            }) 
+            .catch(error => console.log(error));
+    }, []);
+
+    const handleCategoryClick = (category: CategoryType) => {
+        categoryStore.setCategory(category);
+        navigate(`/categories/${category.name}`);
+    }
+    
+    return (
+        <section className={cn(s.container, s.page)}>
+            {
+                categoryStore.currentCategories().map(category => <Category 
+                    key={category.id}
+                    imgSrc={category.image} 
+                    description={category.description}
+                    name={category.name}
+                    onClick={() => handleCategoryClick(category)}
+                />)
+            }
+        </section>
+    );
+}
+
+export default observer(CategoriesPage);

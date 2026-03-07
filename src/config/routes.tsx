@@ -2,7 +2,8 @@ import { Navigate, type RouteObject } from 'react-router';
 import App from '../App';
 import ProductsPage from '../App/pages/ProductsPage';
 import ProductPage from '../App/pages/ProductPage';
-import CategoriesPage from 'App/pages/CategoryPage';
+import CategoriesPage from '../App/pages/CategoriesPage';
+import CategoryPage from '../App/pages/CategoryPage';
 
 export const routes = {
     main: {
@@ -20,6 +21,10 @@ export const routes = {
     categories: {
         mask: "/categories",
         create: () => "/categories"
+    },
+    category: {
+        mask: "/categories/:name",
+        create: (name: string) => `/categories/${name}`
     }
 }
 
@@ -43,6 +48,10 @@ export const routesConfig: RouteObject[] = [
             {
                 path: routes.categories.mask,
                 element: <CategoriesPage />
+            },
+            {
+                path: routes.category.mask,
+                element: <CategoryPage />
             }
         ]
     },

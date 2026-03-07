@@ -29,6 +29,7 @@
       "App": ["App/*"],
       "config": ["config/*"],
       "shared": ["shared/*"],
+      "store": ["store/*"],
       "styles": ["styles/*"],
       "utils": ["utils/*"],
       "public/*": ["../public/*"]

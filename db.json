@@ -72,5 +72,39 @@
             "subtitle": "Combination of wood and wool",
             "contentSlot": "$32.43"
         }
+    ],
+    "categories": [
+        {
+            "id": 1,
+            "slug": "chair",
+            "name": "Chair",
+            "image": "public/categories/chair.png",
+            "description": "Elegant and comfortable chairs for your living space",
+            "text": "Our chair collection brings together comfort and style in perfect harmony. Each piece is crafted with premium materials, ensuring durability without compromising on aesthetics."
+        },
+        {
+            "id": 2,
+            "slug": "cupboard",
+            "name": "Cupboard",
+            "image": "public/categories/cupboard.png",
+            "description": "Spacious and stylish storage solutions",
+            "text": "Transform your home organization with our thoughtfully designed cupboard collection. From minimalist wardrobes to kitchen cabinets with clever compartments."
+        },
+        {
+            "id": 3,
+            "slug": "table",
+            "name": "Table",
+            "image": "public/categories/table.png",
+            "description": "Modern tables for dining and work",
+            "text": "Gather around our exquisite table collection, where functionality meets timeless design. Whether you need a sturdy dining table for family meals."
+        },
+        {
+            "id": 4,
+            "slug": "decoration",
+            "name": "Decoration",
+            "image": "public/categories/decoration.png",
+            "description": "Beautiful decorative items for your home",
+            "text": "Elevate your interior with our carefully curated decoration pieces that add personality and charm to every room. From elegant vases and unique wall art to cozy throws and decorative pillows."
+        }
     ]
 }

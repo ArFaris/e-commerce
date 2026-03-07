@@ -6,12 +6,13 @@ type CategoryProps = {
     imgSrc: string,
     name: string,
     description?: string,
-    className?: string
+    className?: string,
+    onClick?: () => void
 }
 
-const Category: React.FC<CategoryProps> = ({imgSrc, name, description, className, ...props}: CategoryProps) => {
+const Category: React.FC<CategoryProps> = ({imgSrc, name, description, className, onClick, ...props}: CategoryProps) => {
     return (
-        <article className={cn(s.card, className)} {...props}>
+        <article className={cn(s.card, className)} {...props} onClick={onClick}>
             <img className={s.image} src={imgSrc}/>
 
             <Text className={cn(s.text, s.text_name)} view="subtitle">{name}</Text>
