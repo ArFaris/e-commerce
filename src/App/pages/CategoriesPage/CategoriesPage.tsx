@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import api from '../../../api/config';
-import categoryStore from 'store/CategoryStore.ts';
+import categoryStore from 'store/CategoryStore';
 import cn from 'classnames';
 
 const CategoriesPage = () => {
@@ -21,7 +21,7 @@ const CategoriesPage = () => {
 
     const handleCategoryClick = (category: CategoryType) => {
         categoryStore.setCategory(category);
-        navigate(`/categories/${category.name}`);
+        navigate(`/categories/${category.slug}`);
     }
     
     return (

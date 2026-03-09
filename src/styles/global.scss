@@ -4,6 +4,17 @@
 .page {
     max-width: 1240px;
     margin-inline: auto;
+
+    &__title {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      width: 100%;
+      max-width: $title-width;
+      margin-inline: auto;
+      margin-top: $title-margin-top;
+      gap: $gap;
+  }
 }
 
 html, body {

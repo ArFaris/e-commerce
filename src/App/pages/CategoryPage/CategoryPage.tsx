@@ -1,23 +1,26 @@
 import s from './CategoryPage.module.scss';
-import Text from 'components/Text';
 import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router';
-import categoryStore from 'store/CategoryStore.ts';
+import categoryStore from 'store/CategoryStore';
+import Text from 'components/Text';
+import ProductsContainer from 'components/ProductsContainer';
+import ProductFilter from 'components/ProductFilter';
 
 const CategoryPage = () => {
     const { name } = useParams<{name: string}>();
 
-    const category = categoryStore.currentCategory()
+    const category = categoryStore.currentCategory();
 
     return (
-        category && <section className={s.page}>
-
-            <div className={s.text}>
-                <Text view="title" className={s.title}>{category?.name}</Text>
-                <Text view="p-20" color="secondary">{category?.text}</Text>
+        category && 
+        <section className={s.page}>
+            <div className={s.page__title}>
+                <Text view="title">{category?.name}</Text>
+                <Text view="p-20" color="secondary">pageSubtitle={category?.text}</Text>
             </div>
 
-            {/* <ProductList /> */}
+            <ProductFilter />
+            <ProductsContainer category={name}/>
         </section>
     );
 }

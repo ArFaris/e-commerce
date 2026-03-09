@@ -1,0 +1,24 @@
+@import '/src/styles/variables.scss';
+@import '/src/styles/global.scss';
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 79px;
+    margin-top: $products-margin-top;
+    margin-bottom: $products-margin-bottom;
+    margin-bottom: 128px;
+}
+
+.product {
+    // margin-bottom: $product-margin-bottom;
+    margin-bottom: -49px;
+    transition: $transition;
+}
+
+.subtitle {
+    display: flex;
+    align-items: center;
+    margin-top: $subtitle-margin-top;
+    gap: $gap;
+}

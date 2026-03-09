@@ -10,12 +10,15 @@
   text-align: left;
   transition: $transition;
   cursor: pointer;
+  align-self: normal;
 
   &__content {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
     gap: $card-content-gap;
-    padding-inline: $card-content-padding-inline;
+    padding: 48px $card-content-padding-inline;
     margin-block: auto;
     background-color: $button-primary-text;
   }
