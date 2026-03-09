@@ -4,7 +4,6 @@ import s from './CategoriesPage.module.scss';
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
-import api from '../../../api/config';
 import categoryStore from 'store/CategoryStore';
 import cn from 'classnames';
 
@@ -12,15 +11,11 @@ const CategoriesPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        api.get('/categories')
-            .then(response => {
-                categoryStore.setCategories(response.data);
-            }) 
-            .catch(error => console.log(error));
+        categoryStore.loadCategories();
     }, []);
 
     const handleCategoryClick = (category: CategoryType) => {
-        categoryStore.setCategory(category);
+        categoryStore.setCategory(category.slug);
         navigate(`/categories/${category.slug}`);
     }
     

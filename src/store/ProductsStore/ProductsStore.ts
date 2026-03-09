@@ -3,7 +3,7 @@ import type { Product } from "types/product";
 import { type Option } from 'components/MultiDropdown';
 import { getInitialCollectionModel, normalizeCollection } from "shared/collection";
 import type { CollectionModel } from "shared/collection";
-import api from "../../api/config";
+import api from "api/config";
 
 type PrivateFields = '_filteredProducts' | '_allProducts' | '_isLoading' | '_error' | '_logError' | '_options' | '_productsCollection' | '_selectedOptions';
 

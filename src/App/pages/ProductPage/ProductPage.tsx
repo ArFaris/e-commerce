@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router';
 import ArrowDownIcon from 'components/icons/ArrowDownIcon';
 import cn from 'classnames';
 import styles from './ProductPage.module.scss';
-import api from '../../../api/config';
-import { type Product } from '../../../types/product';
+import api from 'api/config';
+import { type Product } from 'types/product';
 
 
 const ProductPage = () => {

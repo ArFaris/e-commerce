@@ -3,6 +3,7 @@
 .multi-dropdown {
     position: relative;
     width: 100%;
+    transition: $transition;
 
     &__field {
         max-width: $multi-dropdown-width;

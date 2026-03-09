@@ -47,7 +47,7 @@ export const useCartContext = () => {
     return context;
 }
 
-const Header: React.FC<HeaderProps> = ({image='public/logo.png', links=linksArr}: HeaderProps) => {
+const Header: React.FC<HeaderProps> = ({image='/public/logo.png', links=linksArr}: HeaderProps) => {
     console.log('Header рендерится!', new Date().toISOString());
     const navigate = useNavigate();
     const [isCartOpen, setIsCartOpen] = useState<boolean>(false);

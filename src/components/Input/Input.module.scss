@@ -2,6 +2,7 @@
 
 .input {
     position: relative;
+    transition: $transition;
 
     &__after {
         position: absolute;

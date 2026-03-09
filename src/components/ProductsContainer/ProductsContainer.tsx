@@ -19,9 +19,13 @@ const ProductContainer: React.FC<ProductContainerProps> = ({category}: ProductCo
     const {productsInCart, setProductsInCart} = useCartProducts();
 
     useEffect(() => {
-        ProductsStore.loadProducts(category);
-        ProductsStore.loadOptions();
-    }, []);
+        const loadData = async () => {
+            await ProductsStore.loadProducts(category);
+            await ProductsStore.loadOptions();
+        };
+        
+        loadData();
+    }, [category]);
 
     const handlerButtonToCartClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: string) => {
         if (!e.currentTarget.parentElement) {
