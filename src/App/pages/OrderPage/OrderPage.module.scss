@@ -1,0 +1,34 @@
+@import '/src/styles/variables.scss';
+@import '/src/styles/global.scss';
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
+    gap: 48px;
+}
+
+.cards {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+}
+
+.card {
+    max-width: 200px;
+    cursor: default;
+    min-height: auto;
+
+    &:hover {
+        box-shadow: none;
+    }
+}
+
+.card img {
+    max-width: 200px;
+}
+
+.text {
+    text-align: center;
+    width: 42%;
+}

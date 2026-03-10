@@ -25,6 +25,11 @@
         gap: $header-icons-gap;
     }
 
+    &__image {
+        cursor: pointer;
+        z-index: 10;
+    }
+
     &__link {
         position: relative;
         cursor: pointer;

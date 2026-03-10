@@ -65,10 +65,16 @@ const Header: React.FC<HeaderProps> = ({image='/public/logo.png', links=linksArr
         navigate('/auth');
     }
 
+    const handleLogoClick = () => {
+        console.log('link')
+        navigate('/products');
+
+    }   
+
     return (
         <CartContext.Provider value={{isCartOpen, setIsCartOpen}}>
             <div className={s.header}>
-                <img src={image}/>
+                <img src={image} className={s.header__image} onClick={handleLogoClick}/>
 
                 <div className={s.header__links}>
                     {
