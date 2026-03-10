@@ -21,7 +21,7 @@ const ProductPage = () => {
     const [error, setError] = useState<Error | null>(null);
     const [cardsRecomended, setCardsRecomended] = useState<Product[] | null>(null);
 
-    const {productsInCart, setProductsInCart} = useCartProducts();
+    const {setProductsInCart} = useCartProducts();
 
     useEffect(() => {
         if (!id) {

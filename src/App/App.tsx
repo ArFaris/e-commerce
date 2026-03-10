@@ -1,9 +1,10 @@
 import Header from 'components/Header';
 import { Outlet } from 'react-router';
-import { useState, useContext } from 'react';
-import { getInitialCollectionModel, type CollectionModel } from 'shared/collection';
+import { useContext } from 'react';
+import { type CollectionModel } from 'shared/collection';
 import type { Product } from 'types/product';
 import React from 'react';
+import useCartWithStorage from 'hooks/useCartWithStorage';
 
 export type CartProductsContextType = {
   productsInCart: CollectionModel<string, {product: Product, count: number}>;
@@ -21,7 +22,7 @@ export const useCartProducts = () => {
 }
 
 const App = () => {
-  const [productsInCart, setProductsInCart] = useState<CollectionModel<string, {product: Product, count: number}>>(getInitialCollectionModel());
+  const {productsInCart, setProductsInCart} = useCartWithStorage();
 
   return (
     <CartProductsContext.Provider value={{productsInCart, setProductsInCart}}>
