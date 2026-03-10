@@ -9,7 +9,8 @@ import cn from 'classnames';
 import styles from './ProductPage.module.scss';
 import api from 'api/config';
 import { type Product } from 'types/product';
-
+import { useCartProducts } from 'App/App';
+import type { CollectionModel } from 'shared/collection';
 
 const ProductPage = () => {
     const { id } = useParams<{id: string}>();
@@ -19,6 +20,8 @@ const ProductPage = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<Error | null>(null);
     const [cardsRecomended, setCardsRecomended] = useState<Product[] | null>(null);
+
+    const {productsInCart, setProductsInCart} = useCartProducts();
 
     useEffect(() => {
         if (!id) {
@@ -40,7 +43,7 @@ const ProductPage = () => {
             {
                 setError(err instanceof Error ? err : new Error('Ошибка загрузки'));
             } finally {
-                setLoading(false);
+                setLoading(false); 
             }
         }
 
@@ -65,6 +68,23 @@ const ProductPage = () => {
             console.error(error);
             return [];
         }
+    }
+
+    const handleButtonClick = () => {
+        if (!product) return;
+        setProductsInCart(prevCart => {
+            const newCart: CollectionModel<string, {product: Product, count: number}> = {...prevCart};
+
+            const id = product.id;
+            if (newCart.entities[id]) {
+                newCart.entities[id] = {product: product, count: prevCart.entities[id].count + 1};
+            } else {
+                newCart.order.push(id);
+                newCart.entities[id] = {product: product, count: 1};
+            }
+
+            return newCart;
+        })
     }
 
     if (loading) return <div>Загрузка...</div>;
@@ -94,7 +114,7 @@ const ProductPage = () => {
 
                         <div className={styles.product__buttons}>
                             <Button>Buy Now</Button>
-                            <Button className={cn(styles['product__buttons--right'])} white={true}>Add to Card</Button>
+                            <Button className={cn(styles['product__buttons--right'])} white={true} onClick={handleButtonClick}>Add to Card</Button>
                         </div>
                     </div>
                 </div>
