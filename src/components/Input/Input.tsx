@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cn from 'classnames';
 import s from './Input.module.scss';
 import ArrowDownIcon from '../icons/ArrowDownIcon';
@@ -8,9 +8,9 @@ export type InputProps = Omit<
   'onChange' | 'value'
 > & {
   /** Значение поля */
-  value: string;
+  value?: string;
   /** Callback, вызываемый при вводе данных в поле */
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   /** Слот для иконки справа */
   afterSlot?: React.ReactNode;
 };
@@ -23,6 +23,15 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   ...props}) =>
 {
+  const [searchText, setSearchText] = useState('');
+
+  const handleInputChange = (currentValue: string) => {
+      setSearchText(currentValue);
+  }
+
+  if (!onChange) onChange = handleInputChange;
+  if (!value) value = searchText;
+
   const handleChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>): void => {
       onChange(event.target.value);

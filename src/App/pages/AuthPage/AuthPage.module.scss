@@ -1,0 +1,41 @@
+@import '/src/styles/variables.scss';
+@import '/src/styles/global.scss';
+
+.auth {
+    max-width: 35%;
+    text-align: center;
+    margin-inline: auto;
+    margin-top: 100px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 50px;
+}
+
+.button {
+    width: 100%;
+}
+
+.buttons {
+    display: flex;
+    gap: $detail-gap;
+    margin-top: $detail-margin;
+    width: 100%;
+
+    &--right {
+        border: 1px solid $text-secondary;
+        background-color: transparent;
+        width: 100%;
+
+        &:hover {
+            background-color: $button-primary-bg-hover;
+        }
+
+        &:active {
+            background-color: $button-primary-bg-active;
+        }
+    }
+}

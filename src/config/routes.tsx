@@ -4,6 +4,8 @@ import ProductsPage from '../App/pages/ProductsPage';
 import ProductPage from '../App/pages/ProductPage';
 import CategoriesPage from '../App/pages/CategoriesPage';
 import CategoryPage from '../App/pages/CategoryPage';
+import AuthPage from 'App/pages/AuthPage';
+import SignInPage from 'App/pages/SignInPage';
 
 export const routes = {
     main: {
@@ -25,6 +27,14 @@ export const routes = {
     category: {
         mask: "/categories/:name",
         create: (name: string) => `/categories/${name}`
+    },
+    auth: {
+        mask: "/auth",
+        create: () => `/auth`
+    },
+    login: {
+        mask: "/login",
+        create: () => `/login`
     }
 }
 
@@ -52,6 +62,14 @@ export const routesConfig: RouteObject[] = [
             {
                 path: routes.category.mask,
                 element: <CategoryPage />
+            },
+            {
+                path: routes.auth.mask,
+                element: <AuthPage />
+            },
+            {
+                path: routes.login.mask,
+                element: <SignInPage />
             }
         ]
     },

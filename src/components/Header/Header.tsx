@@ -61,6 +61,10 @@ const Header: React.FC<HeaderProps> = ({image='/public/logo.png', links=linksArr
         setIsCartOpen(true);
     }
 
+    const handleUserClick = () => {
+        navigate('/auth');
+    }
+
     return (
         <CartContext.Provider value={{isCartOpen, setIsCartOpen}}>
             <div className={s.header}>
@@ -78,7 +82,7 @@ const Header: React.FC<HeaderProps> = ({image='/public/logo.png', links=linksArr
 
                 <div className={s.header__icons}>
                     <CartIcon onClick={handleCartClick}/>
-                    <UserIcon />
+                    <UserIcon onClick={handleUserClick}/>
                 </div>
             </div>
 
