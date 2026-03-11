@@ -6,9 +6,9 @@ type ButtonGroupProps = {
     leftText: string, 
     rightText: string,
     onRightClick: () => void,
-    className: string,
-    classNameLeft: string,
-    classNameRight: string,
+    className?: string,
+    classNameLeft?: string,
+    classNameRight?: string,
 }
 
 const ButtonsGroup = ({
