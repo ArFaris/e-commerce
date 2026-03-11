@@ -1,0 +1,21 @@
+@import '/src/styles/variables.scss';
+@import '/src/styles/global.scss';
+
+.buttons {
+    display: flex;
+    gap: $detail-gap;
+    margin-top: $detail-margin;
+
+    &--right {
+        border: 1px solid $text-secondary;
+        background-color: transparent;
+
+        &:hover {
+            background-color: $button-primary-bg-hover;
+        }
+
+        &:active {
+            background-color: $button-primary-bg-active;
+        }
+    }
+}

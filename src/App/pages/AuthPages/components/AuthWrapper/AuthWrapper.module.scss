@@ -18,24 +18,3 @@
 .button {
     width: 100%;
 }
-
-.buttons {
-    display: flex;
-    gap: $detail-gap;
-    margin-top: $detail-margin;
-    width: 100%;
-
-    &--right {
-        border: 1px solid $text-secondary;
-        background-color: transparent;
-        width: 100%;
-
-        &:hover {
-            background-color: $button-primary-bg-hover;
-        }
-
-        &:active {
-            background-color: $button-primary-bg-active;
-        }
-    }
-}

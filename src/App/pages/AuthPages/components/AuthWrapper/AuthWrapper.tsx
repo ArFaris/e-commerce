@@ -1,9 +1,9 @@
 import s from './AuthWrapper.module.scss';
 import cn from 'classnames';
 import Text from 'components/Text';
-import Button from 'components/Button';
 import { useNavigate } from 'react-router';
 import Input from 'components/Input';
+import ButtonsGroup from 'components/ButtonsGroup';
 
 type AuthWrapperProps = {
     className?: string,
@@ -36,10 +36,14 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({
                 )}
             </div>
 
-            <div className={s.buttons}>
-                <Button className={s.button}>{leftBtnText}</Button>
-                <Button className={s['buttons--right']} white={true} onClick={handleButtonClick}>{rightBtnText}</Button>
-            </div>
+            <ButtonsGroup 
+                leftText={leftBtnText} 
+                rightText={rightBtnText} 
+                onRightClick={handleButtonClick}
+                className={s.button}
+                classNameRight={s.button}
+                classNameLeft={s.button}
+            />
         </section>
     )
 }

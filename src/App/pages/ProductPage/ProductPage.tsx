@@ -5,12 +5,12 @@ import Button from 'components/Button';
 import Card from 'components/Card';
 import { useNavigate } from 'react-router';
 import ArrowDownIcon from 'components/icons/ArrowDownIcon';
-import cn from 'classnames';
 import styles from './ProductPage.module.scss';
 import api from 'api/config';
 import { type Product } from 'types/product';
 import { useCartProducts } from 'App/App';
 import type { CollectionModel } from 'shared/collection';
+import ButtonsGroup from 'components/ButtonsGroup';
 
 const ProductPage = () => {
     const { id } = useParams<{id: string}>();
@@ -111,11 +111,7 @@ const ProductPage = () => {
 
                     <div>
                         <Text view="title">{product.contentSlot}</Text>
-
-                        <div className={styles.product__buttons}>
-                            <Button>Buy Now</Button>
-                            <Button className={cn(styles['product__buttons--right'])} white={true} onClick={handleButtonClick}>Add to Card</Button>
-                        </div>
+                        <ButtonsGroup leftText="Buy Now" rightText="Add to Card" onRightClick={handleButtonClick}/>
                     </div>
                 </div>
             </section>
