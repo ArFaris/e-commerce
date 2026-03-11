@@ -3,9 +3,9 @@ import App from '../App';
 import ProductsPage from '../App/pages/ProductsPage';
 import ProductPage from '../App/pages/ProductPage';
 import CategoriesPage from '../App/pages/CategoriesPage';
-import CategoryPage from '../App/pages/CategoryPage';
-import AuthPage from 'App/pages/AuthPage';
-import SignInPage from 'App/pages/SignInPage';
+import CategoryPage from 'App/pages/CategoryPage';
+import SignUpPage from 'App/pages/AuthPages/SignUpPage';
+import SignInPage from 'App/pages/AuthPages/SignInPage';
 import OrderPage from 'App/pages/OrderPage';
 
 export const routes = {
@@ -30,8 +30,8 @@ export const routes = {
         create: (name: string) => `/categories/${name}`
     },
     auth: {
-        mask: "/auth",
-        create: () => `/auth`
+        mask: "/registration",
+        create: () => `/registration`
     },
     login: {
         mask: "/login",
@@ -70,7 +70,7 @@ export const routesConfig: RouteObject[] = [
             },
             {
                 path: routes.auth.mask,
-                element: <AuthPage />
+                element: <SignUpPage />
             },
             {
                 path: routes.login.mask,

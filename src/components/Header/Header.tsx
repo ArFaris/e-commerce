@@ -62,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({image='/public/logo.png', links=linksArr
     }
 
     const handleUserClick = () => {
-        navigate('/auth');
+        navigate('/registration');
     }
 
     const handleLogoClick = () => {
