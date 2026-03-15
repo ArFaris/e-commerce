@@ -13,6 +13,9 @@ export type InputProps = Omit<
   onChange?: (value: string) => void;
   /** Слот для иконки справа */
   afterSlot?: React.ReactNode;
+
+  error?: boolean;
+  editmode?: boolean;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -20,7 +23,9 @@ const Input: React.FC<InputProps> = ({
   onChange, 
   afterSlot = <ArrowDownIcon color="secondary"/>, 
   className, 
+  error,
   placeholder,
+  editmode,
   ...props}) =>
 {
   const [searchText, setSearchText] = useState('');
@@ -40,7 +45,7 @@ const Input: React.FC<InputProps> = ({
   );
 
   return (
-    <div className={cn(className, s.input)}>
+    <div className={cn(s.input, className, error && s.error, editmode && s.editmode)}>
       <input type="text" value={value} {...props} placeholder={placeholder || 'Текст'} onChange={handleChange}/>
       <div className={s.input__after}>
         {afterSlot}

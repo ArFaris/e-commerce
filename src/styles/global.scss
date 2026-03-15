@@ -57,3 +57,21 @@ button, svg {
 #root {
   margin: 0 auto;
 }
+
+input {
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px white inset !important;
+        box-shadow: 0 0 0 30px white inset !important;
+        -webkit-text-fill-color: $text-primary !important;
+        caret-color: $text-primary;
+        border-radius: inherit;
+    }
+}
+
+.text-error {
+    color: #b42432;
+    text-align: left;
+}

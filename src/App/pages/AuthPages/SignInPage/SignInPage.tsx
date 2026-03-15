@@ -1,12 +1,22 @@
-import AuthWrapper from "../components/AuthWrapper";
+import AuthWrapper, { type InputAttributes } from "../components/AuthWrapper";
 
 const SignInPage = () => {
-    const placeholders = ["Email", "Password"]
+    const inputsAttributes: InputAttributes[] = [
+        {
+            text: "Email",
+            type: "email",
+            name: 'email'
+        }, {
+            text: "Password",
+            type: "password",
+            autoComplete: "new-password",
+            name: 'password'
+        }]
 
     return (
         <AuthWrapper 
             title="Login" 
-            placeholders={placeholders}
+            inputsAttributes={inputsAttributes}
             leftBtnText="Sign in"
             rightBtnText="Sign up">
         </AuthWrapper>

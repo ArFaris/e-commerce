@@ -5,7 +5,7 @@
     max-width: 35%;
     text-align: center;
     margin-inline: auto;
-    margin-top: 100px;
+    margin-block: 50px;
 }
 
 .inputs {
@@ -17,4 +17,10 @@
 
 .button {
     width: 100%;
+}
+
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }

@@ -6,6 +6,8 @@ import Text from 'components/Text';
 import s from './Header.module.scss';
 import { useCartProducts } from 'App/App';
 import Cart from 'components/Cart';
+import { observer } from 'mobx-react-lite';
+import userStore from 'store/UserStore';
 
 type Link = {
     description: string,
@@ -61,14 +63,19 @@ const Header: React.FC<HeaderProps> = ({image='/public/logo.png', links=linksArr
         setIsCartOpen(true);
     }
 
-    const handleUserClick = () => {
-        navigate('/registration');
+    const handleUserClick = async () => {
+        await userStore.restoreSession();
+
+        if (userStore.user) {
+            navigate('/user');
+        } else {
+            navigate('/registration');
+        }
     }
 
     const handleLogoClick = () => {
         console.log('link')
         navigate('/products');
-
     }   
 
     return (
@@ -97,4 +104,4 @@ const Header: React.FC<HeaderProps> = ({image='/public/logo.png', links=linksArr
     );
 }
 
-export default Header;
+export default observer(Header);

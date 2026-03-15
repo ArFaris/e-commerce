@@ -4,11 +4,25 @@ import Text from 'components/Text';
 import { useNavigate } from 'react-router';
 import Input from 'components/Input';
 import ButtonsGroup from 'components/ButtonsGroup';
+import userStore from 'store/UserStore';
+import { observer } from 'mobx-react-lite';
+import type { UserCreate } from 'types/user';
+import { ZodError } from 'zod';
+import { useState } from 'react';
+import { UserShema } from 'shared/schemas/user.schema';
+import { validation } from 'shared/utils/validation-error';
+
+export type InputAttributes = {
+    text: string,
+    type: string,
+    autoComplete?: string,
+    name: string
+}
 
 type AuthWrapperProps = {
     className?: string,
     title: string,
-    placeholders: string[],
+    inputsAttributes: InputAttributes[],
     leftBtnText: string,
     rightBtnText: string
 }
@@ -16,36 +30,126 @@ type AuthWrapperProps = {
 const AuthWrapper: React.FC<AuthWrapperProps> = ({
     className, 
     title, 
-    placeholders, 
+    inputsAttributes, 
     leftBtnText,
-    rightBtnText,
+    rightBtnText
 }: AuthWrapperProps) => {
     const navigate = useNavigate();
+    const [errors, setErrors] = useState<Record<string, string>>({});
 
     const handleButtonClick = () => {
         const route = title === "Registration" ? '/login' : '/registration';
         navigate(route);
     }
 
+    const registerUser = async (e: React.SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setErrors({});
+
+        const formData = new FormData(e.currentTarget);
+
+        const user: UserCreate = {
+            email: formData.get('email') as string,
+            password: formData.get('password') as string,
+            firstName: formData.get('firstName') as string,
+            lastName: formData.get('lastName') as string,
+        }
+
+        try {
+            UserShema.parse(user);
+        } catch(error) {
+            if (error instanceof ZodError) {
+                const fieldErrors = validation(error);
+                setErrors(fieldErrors);
+                return;
+            }
+        }
+
+        if (user.password !== formData.get('copyPassword')) {
+            setErrors({'password': 'Passwords must match', 'copyPassword': 'Passwords must match'});
+            return;
+        };
+        
+        try {
+            await userStore.register(user);
+            navigate('/user');
+        } catch(error) {
+            console.error(error);
+        }
+    }
+
+    const loginUser = async (e: React.SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setErrors({});
+
+        const formData = new FormData(e.currentTarget);
+
+        const request = {
+            email: formData.get('email') as string,
+            password: formData.get('password') as string
+        }
+
+        try {
+            UserShema.partial().parse(request);
+        } catch(error) {
+            if (error instanceof ZodError) {
+                const fieldErrors = validation(error);
+                setErrors(fieldErrors);
+                return;
+            }
+        }
+
+        try {
+            await userStore.login(request.email, request.password);
+            if (userStore.error) {
+                throw userStore.error;
+            }
+            navigate('/user');
+        } catch(error) {
+            console.error(error);
+            setErrors({'userNotFound': 'Account not found'});
+        }
+    }
+
+    const handleInputSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+        if (title.toLocaleLowerCase() === 'registration') {
+            await registerUser(e);
+        } else {
+            await loginUser(e);
+        }
+    }
+
     return (
-        <section className={cn(s.auth, className)}>
+        <form onSubmit={(e) => handleInputSubmit(e)} className={cn(s.auth, className)}>
             <Text view="title">{title}</Text>
             <div className={s.inputs}>
-                {placeholders.map((placeholder: string) =>
-                     <Input placeholder={placeholder} afterSlot={<></>}/>
-                )}
+                {inputsAttributes.map(attributes => (
+                    <div key={attributes.name} className={s.inputBox}>
+                        <Input name={attributes.name} 
+                                autoComplete={attributes.autoComplete} 
+                                placeholder={attributes.text} 
+                                type={attributes.type} 
+                                afterSlot={<></>}
+                                required
+                                error={!!errors[attributes.name]}
+                        />
+                        {errors[attributes.name] && <Text className={s['text-error']} view="p-14">{errors[attributes.name]}</Text>}
+                    </div>
+                ))}
+                {errors['userNotFound'] && <Text className={s['text-error']} view="p-14">{errors['userNotFound']}</Text>}
             </div>
 
             <ButtonsGroup 
                 leftText={leftBtnText} 
-                rightText={rightBtnText} 
+                rightText={rightBtnText}
                 onRightClick={handleButtonClick}
                 className={s.button}
                 classNameRight={s.button}
                 classNameLeft={s.button}
+                form={true}
             />
-        </section>
+        </form>
     )
 }
 
-export default AuthWrapper;
+export default observer(AuthWrapper);

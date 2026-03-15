@@ -64,7 +64,6 @@ const Cart = ({products, className}: CartProps) => {
     }, [totalAmounts])
 
     const handleOrderClick = () => {
-        navigate('/order');
         handleCartClick();
     }
 

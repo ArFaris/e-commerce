@@ -1,16 +1,5 @@
 @import '/src/styles/variables.scss';
 
-.input {
-    position: relative;
-    transition: $transition;
-
-    &__after {
-        position: absolute;
-        top: 14px;
-        right: 12px;
-    }
-}
-
 .input input:focus:not(:disabled) {
     border: 1px solid $text-accent;
     outline: none;
@@ -31,4 +20,37 @@
 .input input:disabled {
     background-color: $button-primary-text;
     color: rgba(0, 0, 0, 0.2);
+}
+
+.input {
+    position: relative;
+    transition: $transition;
+
+    &__after {
+        position: absolute;
+        top: 14px;
+        right: 12px;
+    }
+}
+
+.error {
+    input {
+        transition: all 0.5s ease;
+        background-color: rgba(#b42432, 0.2);
+
+        &:hover:not(:disabled) {
+            background-color: rgba(#b02432d7, 0.3);
+        }
+
+        &:focus:not(:disabled), &:active:not(:disabled) {
+            background-color: $button-primary-text;
+            border: 1px solid #b42432;
+        }
+    }
+}
+
+.editmode input:not(:disabled) {
+    display: block;
+    min-width: auto;
+    width: 100%;
 }

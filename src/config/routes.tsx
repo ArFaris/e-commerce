@@ -6,7 +6,7 @@ import CategoriesPage from '../App/pages/CategoriesPage';
 import CategoryPage from 'App/pages/CategoryPage';
 import SignUpPage from 'App/pages/AuthPages/SignUpPage';
 import SignInPage from 'App/pages/AuthPages/SignInPage';
-import OrderPage from 'App/pages/OrderPage';
+import UserPage from 'App/pages/UserPage';
 
 export const routes = {
     main: {
@@ -37,9 +37,9 @@ export const routes = {
         mask: "/login",
         create: () => `/login`
     },
-    order: {
-        mask: "/order",
-        create: () => `/order`
+    user: {
+        mask: "/user",
+        create: () => `/user`
     }
 }
 
@@ -77,8 +77,8 @@ export const routesConfig: RouteObject[] = [
                 element: <SignInPage />
             },
             {
-                path: routes.order.mask,
-                element: <OrderPage />
+                path: routes.user.mask,
+                element: <UserPage />
             }
         ]
     },
