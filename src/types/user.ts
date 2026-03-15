@@ -7,5 +7,5 @@ export interface UserCreate {
 
 export interface User extends UserCreate {
     id: string;
-    createdAt: string;
+    created_at: string;
 }

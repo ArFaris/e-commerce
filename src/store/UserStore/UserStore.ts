@@ -1,6 +1,6 @@
 import { action, computed, makeObservable, observable } from "mobx";
-import api from 'api/config';
 import type { User, UserCreate} from 'types/user';
+import supabase from "lib/Supabase";
 
 type PrivateFields = '_isLoading' | '_error' | '_user';
 
@@ -32,23 +32,31 @@ class UserStore {
     async register(data: UserCreate) {
         const userData = {
             ...data,
-            'createdAt': new Date().toISOString()
+            'created_at': new Date().toISOString()
         }
 
         try {
             this._isLoading = true;
             this._error = null;
 
-            const checkResponse = await api.get(`/users?email=${userData.email}`);
+            const { data: existingUsers } = await supabase
+                                                    .from('users')
+                                                    .select('*')
+                                                    .eq('email', userData.email);
 
-            if (checkResponse.data.length > 0) {
+            if (!existingUsers) {
                 this._error = 'A user with such as email already exists';
                 return;
             }
 
-            const response = await api.post('/users', userData);
-            
-            this._user = response.data;
+            const { data: newUser, error } = await supabase
+                                                .from('users')
+                                                .insert([userData])
+                                                .select()
+                                                .single()
+            if (error) throw error;
+
+            this._user = newUser;
             localStorage.setItem('user', JSON.stringify(this._user));
 
             return this._user;
@@ -65,16 +73,20 @@ class UserStore {
             this._isLoading = true;
             this._error = null;
 
-            const response = await api.get<User[]>(`/users?email=${email}&password=${password}`);
-
-            console.log(response)
-            if (response.data.length === 0) {
+            const { data: user } = await supabase    
+                                            .from('users')
+                                            .select()
+                                            .eq('email', email)
+                                            .eq('password', password)
+                                            .single()
+            console.log(user)
+            if (!user) {
                 this._error = 'The user does not exist';
                 console.log("error");
                 return;
             }
 
-            this._user = response.data[0];
+            this._user = user;
 
             localStorage.setItem('user', JSON.stringify(this._user));
 
@@ -92,8 +104,14 @@ class UserStore {
             this._isLoading = true;
             this._error = null;
 
-            const response = await api.patch(`/users/${userId}`, updates);
-            this._user = response.data;
+            const { data: updatedUser, error } = await supabase
+                                                    .from('users')
+                                                    .update(updates)
+                                                    .eq('id', userId)
+                                                    .select()
+                                                    .single()
+            if (error) throw error;
+            this._user = updatedUser;
 
             localStorage.setItem('user', JSON.stringify(this._user));
 
@@ -111,8 +129,12 @@ class UserStore {
             this._isLoading = true;
             this._error = null;
 
-            await api.delete(`/users/${userId}`);
+            const { error } = await supabase
+                    .from('users')
+                    .delete()
+                    .eq('id', userId);
 
+            if (error) throw error;
             this._user = null;
             localStorage.removeItem('user');
         } catch(error) {
@@ -130,9 +152,15 @@ class UserStore {
 
         try {
             const user = JSON.parse(savedUser);
-            const response = await api.get(`/users/${user.id}`);
 
-            this._user = response.data;
+            const { data: userData, error } = await supabase
+                    .from('users')
+                    .select('*')
+                    .eq('id', user.id)
+                    .single();
+
+            if (error) throw error;
+            this._user = userData;
             localStorage.setItem('user', JSON.stringify(this._user));
         } catch(error) {
             localStorage.removeItem('user');

@@ -56,7 +56,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({
         }
 
         try {
-            UserShema.parse(user);
+            UserShema.partial().parse(user);
         } catch(error) {
             if (error instanceof ZodError) {
                 const fieldErrors = validation(error);

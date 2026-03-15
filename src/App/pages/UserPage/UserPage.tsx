@@ -86,7 +86,6 @@ const UserPage: React.FC = () => {
         restoreSession();
     }, []);
 
-
     const user = userStore.user;
     const userInfo: Record<string, { title: string, data: string }> = { 'firstName': { title: 'First Name:', data: user?.firstName || ''}, 
                                                                         'lastName': { title: 'Last Name:', data: user?.lastName || ''}, 
@@ -117,7 +116,7 @@ const UserPage: React.FC = () => {
                                                     afterSlot={<></>}
                                                     onChange={(newValue) => handleInputChange(label, newValue)}
                                                     error={!!errors[label]}
-                                            />}
+                                        />}
                                 </Text>
                                 {errors[label] && <Text className={cn(s['text-error'], s.error)} view="p-14">{errors[label]}</Text>}
                             </div>
