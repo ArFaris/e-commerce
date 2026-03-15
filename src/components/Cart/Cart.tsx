@@ -78,7 +78,7 @@ const Cart = ({products, className}: CartProps) => {
                         <div className={s.cart__data}>
                             {
                                 products?.order.map((id) => <CartData key={id} count={products.entities[id].count} product={products.entities[id].product} 
-                                price={products.entities[id].product.contentSlot}/>)
+                                price={products.entities[id].product.price}/>)
                             }
                         </div>
                         <Text view="subtitle">{`Total amount: ${finalSum}`}</Text>

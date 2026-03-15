@@ -86,7 +86,7 @@ const Header: React.FC<HeaderProps> = ({image='/public/logo.png', links=linksArr
                 <div className={s.header__links}>
                     {
                         links.map(link =>
-                        <div onClick={() => handleLinkClick(link)} className={s.header__link}><Text 
+                        <div key={link.to} onClick={() => handleLinkClick(link)} className={s.header__link}><Text 
                         view="p-18">
                             {link.description}
                         </Text></div>)

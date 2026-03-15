@@ -1,6 +1,6 @@
 import { action, computed, makeObservable, observable } from "mobx";
 import type { CategoryType } from "types/category";
-import api from 'api/config';
+import supabase from "lib/Supabase";
 
 type PrivateFields = '_category' | '_categories';
 
@@ -20,11 +20,15 @@ class CategoryStore {
     }
 
     async loadCategories() {
-        await api.get('/categories')
-            .then(response => {
-                this.setCategories(response.data);
-            })
-            .catch(error => console.log(error));
+        const { data, error } = await supabase
+                                    .from('categories')
+                                    .select('*')
+        if (data) {
+            console.log("data", data)
+            this.setCategories(data);
+        } else {
+            console.log(error);
+        }
     }
 
     get category(): CategoryType | null {

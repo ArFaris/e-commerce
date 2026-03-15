@@ -23,7 +23,7 @@ const CategoryPage = () => {
         category && <section className={s.page}>
             <div className={s.page__title}>
                 <Text view="title">{category?.name}</Text>
-                <Text view="p-20" color="secondary">pageSubtitle={category?.text}</Text>
+                <Text view="p-20" color="secondary">{category?.text}</Text>
             </div>
 
             <ProductFilter />

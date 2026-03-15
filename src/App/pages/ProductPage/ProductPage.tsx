@@ -6,11 +6,12 @@ import Card from 'components/Card';
 import { useNavigate } from 'react-router';
 import ArrowDownIcon from 'components/icons/ArrowDownIcon';
 import styles from './ProductPage.module.scss';
-import api from 'api/config';
 import { type Product } from 'types/product';
 import { useCartProducts } from 'App/App';
 import type { CollectionModel } from 'shared/collection';
 import ButtonsGroup from 'components/ButtonsGroup';
+import supabase from 'lib/Supabase';
+import uiStore from 'store/UIStore';
 
 const ProductPage = () => {
     const { id } = useParams<{id: string}>();
@@ -24,6 +25,10 @@ const ProductPage = () => {
     const {setProductsInCart} = useCartProducts();
 
     useEffect(() => {
+        uiStore.setLoading(loading);
+    }, [loading])
+
+    useEffect(() => {
         if (!id) {
             setError(new Error('Id продукта не указан'));
             setLoading(false);
@@ -35,9 +40,16 @@ const ProductPage = () => {
             {
                 setLoading(true);
 
-                const [productResponse, recomended] = await Promise.all([api.get(`/products/${id}`), getCardsRandom(id)]);
+                const { data: product, error } = await supabase
+                                                            .from('products')
+                                                            .select('*')
+                                                            .eq('id', id)
+                                                            .single();
+                if (error) throw error;
 
-                setProduct(productResponse.data)
+                const recomended = await getCardsRandom(id);
+
+                setProduct(product)
                 setCardsRecomended(recomended);
             } catch (err) 
             {
@@ -52,10 +64,16 @@ const ProductPage = () => {
 
     const getCardsRandom = async (id: string): Promise<Product[]> => {
         try {
-            const response = await api.get('/products');
+            const { data, error } = await supabase
+                                        .from('products')
+                                        .select('*');
+            if (error) {
+                throw error;
+            }
+
             const newCardsRecomended: Product[] = [];
 
-            for (const product of response.data) {
+            for (const product of data) {
                 if (newCardsRecomended.length >= 3) break;
 
                 if (product.id !== id) {
@@ -87,9 +105,8 @@ const ProductPage = () => {
         })
     }
 
-    if (loading) return <div>Загрузка...</div>;
-    if (error) return <div>Ошибка: {error.message}</div>;
-    if (!product) return <div>Продукт не найден</div>;
+    if (error) return;
+    if (!product) return;
     
     return (
         <main className={styles.page}>
@@ -110,7 +127,7 @@ const ProductPage = () => {
                     </div>
 
                     <div>
-                        <Text view="title">{product.contentSlot}</Text>
+                        <Text view="title">{product.price}</Text>
                         <ButtonsGroup leftText="Buy Now" rightText="Add to Card" onRightClick={handleButtonClick}/>
                     </div>
                 </div>
@@ -124,10 +141,10 @@ const ProductPage = () => {
                         cardsRecomended?.map(product => 
                                 <Card 
                                 image={`/public/products/${product.image}.png`}
-                                captionSlot={<>{product.captionSlot}</>}
+                                captionSlot={<>{product.category_name}</>}
                                 title={<>{product.title}</>}
                                 subtitle={<>{product.subtitle}</>}
-                                contentSlot={<>{product.contentSlot}</>}
+                                contentSlot={<>{product.price}</>}
                                 onClick={() => navigate(`/products/${product.id}`)}
                                 actionSlot={<Button style={{width: '155px'}}>Add to Cart</Button>}
                             />)

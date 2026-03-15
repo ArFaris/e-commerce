@@ -63,10 +63,10 @@ const ProductContainer: React.FC<ProductContainerProps> = ({category}: ProductCo
                         key={product.id}
                         className={styles.product}
                         image={`/public/products/${product.image}.png`}
-                        captionSlot={<>{product.captionSlot}</>}
+                        captionSlot={<>{product.category_name}</>}
                         title={<>{product.title}</>}
                         subtitle={<>{product.subtitle}</>}
-                        contentSlot={<>{product.contentSlot}</>}
+                        contentSlot={<>{product.price}</>}
                         onClick={() => navigate(`/products/${product.id}`)}
                         actionSlot={<Button style={{width: '155px'}} 
                         onClick={(e) => handlerButtonToCartClick(e, product.id)}>Add to Cart</Button>}/>)

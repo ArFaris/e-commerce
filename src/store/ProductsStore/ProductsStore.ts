@@ -3,7 +3,7 @@ import type { Product } from "types/product";
 import { type Option } from 'components/MultiDropdown';
 import { getInitialCollectionModel, normalizeCollection } from "shared/collection";
 import type { CollectionModel } from "shared/collection";
-import api from "api/config";
+import supabase from "lib/Supabase";
 
 type PrivateFields = '_filteredProducts' | '_allProducts' | '_isLoading' | '_error' | '_logError' | '_options' | '_productsCollection' | '_selectedOptions';
 
@@ -51,14 +51,19 @@ class ProductsStore {
         this._error = null;
 
         try {
-            const response = await api.get('/products');
-
+            const { data, error } = await supabase
+                                        .from('products')
+                                        .select('*');
+            if (error) {
+                throw error;
+            }
+            
             runInAction(() => {
                 this._isLoading = false;
                 if (category) {
-                    this._allProducts = response.data.filter((item: Product) => item.captionSlot.toLocaleLowerCase() === category.toLocaleLowerCase());
+                    this._allProducts = data?.filter((item: Product) => item.category_name.toLocaleLowerCase() === category.toLocaleLowerCase()) as Product[];
                 } else {
-                    this._allProducts = response.data;
+                    this._allProducts = data as Product[];
                 }
 
                 this._filteredProducts = [...this._allProducts];

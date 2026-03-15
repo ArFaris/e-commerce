@@ -5,6 +5,9 @@ import { type CollectionModel } from 'shared/collection';
 import type { Product } from 'types/product';
 import React from 'react';
 import useCartWithStorage from 'hooks/useCartWithStorage';
+import uiStore from 'store/UIStore';
+import LoadingScreen from 'components/LoadingScreen';
+import { observer } from 'mobx-react-lite';
 
 export type CartProductsContextType = {
   productsInCart: CollectionModel<string, {product: Product, count: number}>;
@@ -27,9 +30,10 @@ const App = () => {
   return (
     <CartProductsContext.Provider value={{productsInCart, setProductsInCart}}>
       <Header />
+      {uiStore.loading && <LoadingScreen/>}
       <Outlet />
     </CartProductsContext.Provider>
   )
 }
 
-export default App;
+export default observer(App);

@@ -14,15 +14,17 @@ type CartDataProps = {
 }
 
 const CartData = ({product, count}: CartDataProps) => {
+    console.log("product", product)
     const { setProductsInCart } = useCartProducts();
     const { setTotalAmounts } = useCartAmount();
 
     const parsePriceFromSlot = (slot: string): number => {
+        console.log(slot)
         let priceValue = slot.slice(1);
         return Number(priceValue);
     }
 
-    const defaultPrice = useMemo(() => parsePriceFromSlot(product.contentSlot), [product.contentSlot]);
+    const defaultPrice = useMemo(() => parsePriceFromSlot(product.price), [product.price]);
     const [currentCount, setCurrentCount] = useState(count);
     const [disableBtn, setDisableBtn] = useState<boolean>(count === 1 ? true : false);
 
@@ -77,7 +79,7 @@ const CartData = ({product, count}: CartDataProps) => {
 
             <div className={s.content}>
                 <div>
-                    <Text view="p-14" color="secondary" weight="bold">{product.captionSlot}</Text>
+                    <Text view="p-14" color="secondary" weight="bold">{product.category_name}</Text>
                     <Text view="p-20">{product.title}</Text>
                     <Text view="p-16" color="secondary" maxLines={1}>{product.subtitle}</Text>
                 </div>
