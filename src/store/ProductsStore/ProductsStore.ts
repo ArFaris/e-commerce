@@ -84,7 +84,7 @@ class ProductsStore {
         }
 
         this._options = [];
-        for (let product of this._allProducts) {
+        for (const product of this._allProducts) {
             this._options.push({value: product.title, key: product.id})
         }
         

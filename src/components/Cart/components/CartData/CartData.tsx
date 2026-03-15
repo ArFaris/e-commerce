@@ -20,7 +20,7 @@ const CartData = ({product, count}: CartDataProps) => {
 
     const parsePriceFromSlot = (slot: string): number => {
         console.log(slot)
-        let priceValue = slot.slice(1);
+        const priceValue = slot.slice(1);
         return Number(priceValue);
     }
 
