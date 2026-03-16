@@ -8,8 +8,11 @@ import { useCartProducts } from 'App/App';
 import Cart from 'components/Cart';
 import { observer } from 'mobx-react-lite';
 import userStore from 'store/UserStore';
+import MenuIcon from 'components/icons/MenuIcon';
+import BurgerMenu from './componenets/BurgerMenu';
+import useBurgerMenu from 'hooks/useBurgerMenu.ts';
 
-type Link = {
+export type Link = {
     description: string,
     to: string
 }
@@ -50,10 +53,12 @@ export const useCartContext = () => {
 }
 
 const Header: React.FC<HeaderProps> = ({image='/public/logo.png', links=linksArr}: HeaderProps) => {
-    console.log('Header рендерится!', new Date().toISOString());
+    console.log('Header рендерится', new Date().toISOString());
     const navigate = useNavigate();
     const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
+
     const { productsInCart } = useCartProducts();
+    const { isOpen, close, open } = useBurgerMenu();
 
     const handleLinkClick = (link: Link) => {
         navigate(link.to);
@@ -76,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({image='/public/logo.png', links=linksArr
     const handleLogoClick = () => {
         console.log('link')
         navigate('/products');
-    }   
+    }
 
     return (
         <CartContext.Provider value={{isCartOpen, setIsCartOpen}}>
@@ -93,13 +98,24 @@ const Header: React.FC<HeaderProps> = ({image='/public/logo.png', links=linksArr
                     }
                 </div>
 
-                <div className={s.header__icons}>
-                    <CartIcon onClick={handleCartClick}/>
-                    <UserIcon onClick={handleUserClick}/>
+                <div className={s.icons}>
+                    <div className={s.header__icons}>
+                        <CartIcon onClick={handleCartClick}/>
+                        <UserIcon onClick={handleUserClick}/>
+                    </div>
+
+                    <MenuIcon onClick={open} className={s.menu}/>
                 </div>
+
             </div>
 
             {isCartOpen && <Cart products={productsInCart} />}
+            <BurgerMenu     onClose={close}
+                            isOpen={isOpen}
+                            links={links} 
+                            onCartClick={handleCartClick} 
+                            onUserClick={handleUserClick}
+                            onLinkClick={handleLinkClick}/>
         </CartContext.Provider>
     );
 }

@@ -12,9 +12,7 @@ type CategoryProps = {
 
 const Category: React.FC<CategoryProps> = ({imgSrc, name, description, className, onClick, ...props}: CategoryProps) => {
     return (
-        <article className={cn(s.card, className)} {...props} onClick={onClick}>
-            <img className={s.image} src={imgSrc}/>
-
+        <article className={cn(s.card, className)} style={{ '--bg-image': `url(${imgSrc})` } as React.CSSProperties} {...props} onClick={onClick}>
             <Text className={cn(s.text, s.text_name)} view="subtitle">{name}</Text>
             <Text className={s.text} view="p-20" color="secondary">{description}</Text>
         </article>

@@ -2,8 +2,8 @@
 @import '/src/styles/global.scss';
 
 .products {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 79px;
     margin-top: $products-margin-top;
     margin-bottom: $products-margin-bottom;
@@ -21,4 +21,14 @@
     align-items: center;
     margin-top: $subtitle-margin-top;
     gap: $gap;
+}
+
+@media(max-width: 1280px) {
+    .products {
+        gap: 50px;
+    }
+
+    .product {
+        margin-bottom: 0;
+    }
 }

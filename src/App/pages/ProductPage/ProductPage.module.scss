@@ -65,6 +65,47 @@
 .products {
     display: flex;
     justify-content: space-between;
+    gap: 79px;
     margin-top: $detail-product-margin-top;  
     margin-bottom: $detail-products-margin-bottom;
+}
+
+@media(max-width: 1280px) {
+    .products {
+        gap: 48px;
+    }
+}
+
+@media(max-width: 1024px) {
+    .product {
+        flex-direction: column;
+        align-items: center;
+
+        &__content {
+            align-items: center;
+            text-align: center;
+        }
+    }
+
+    .actions {
+        min-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .products {
+        overflow-x: auto;
+    }
+
+    .products > * {
+        flex-shrink: 0;     
+        max-width: 360px;  
+    }
+}
+
+@media(max-width: 768px) {
+    .buttons {
+        min-width: 100%;
+    }
 }

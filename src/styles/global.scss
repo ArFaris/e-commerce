@@ -17,6 +17,23 @@
   }
 }
 
+@media(max-width: 1280px) {
+  .page {
+    max-width: calc(100% - 100px);
+  }
+}
+
+@media(max-width: 414px) {
+  .page {
+    max-width: calc(100% - 48px);
+  }
+}
+
+
+@media(max-width: 1024px) {
+
+}
+
 html, body {
   font-family: 'Roboto';
   margin: 0;
@@ -74,4 +91,10 @@ input {
 .text-error {
     color: #b42432;
     text-align: left;
+}
+
+.close-icon {
+    position: absolute;
+    top: 30px;
+    right: 25px;
 }

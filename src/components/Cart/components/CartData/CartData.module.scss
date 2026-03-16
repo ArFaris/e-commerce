@@ -35,3 +35,15 @@
     top: -3px;
     right: -5px;
 }
+
+@media(max-width: 415px) {
+    .subtitle {
+        display: none;
+    }
+}
+
+@media(max-width: 375px) {
+    .data {
+        padding: 0;
+    }
+}

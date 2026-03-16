@@ -3,9 +3,9 @@
 .card {
   display: flex;
   flex-direction: column;
-  max-width: $card-width;
-  min-height: $card-height;
   width: 100%;
+  min-width: 0;
+  min-height: $card-height;
   background-color: $button-primary-text;
   text-align: left;
   transition: $transition;
@@ -50,4 +50,9 @@
     font-size: $font-size-p18;
     line-height: $line-height-p18;
   }
+}
+
+.image__wrapper img {
+  width: 100%;
+  object-fit: cover;
 }

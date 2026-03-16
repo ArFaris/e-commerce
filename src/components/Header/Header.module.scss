@@ -4,7 +4,7 @@
     width: 100%;
     height: $header-height;
     display: flex;
-    padding-inline: $header-padding-inline;
+    padding-inline: calc((100vw - 1240px) / 2);
     justify-content: space-between;
     align-items: center;
     outline: 2px solid $header-outline;
@@ -52,5 +52,36 @@
             bottom: -36px;
             display: none;
         }
+    }
+}
+
+.menu {
+    display: none;
+}
+
+.icons {
+    display: flex;
+    gap: $header-icons-gap;
+}
+
+@media(max-width: 1280px) {
+    .header {
+        padding-inline: 50px;
+    }
+}
+
+@media(max-width: 1024px) {
+    .header__links {
+        display: none;
+    }
+
+    .menu {
+        display: inline;
+    }
+}
+
+@media(max-width: 768px) {
+    .header__icons {
+        display: none;
     }
 }

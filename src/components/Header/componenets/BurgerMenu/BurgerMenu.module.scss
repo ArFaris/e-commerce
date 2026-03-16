@@ -1,0 +1,86 @@
+@import '/src/styles/variables.scss';
+@import '/src/styles/global.scss';
+
+.menu {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 12000;
+    text-align: center;
+    padding: 48px 24px;
+    backdrop-filter: blur(20px);
+    transition: $transition;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.open {
+    display: block;
+}
+
+.close {
+    display: none;
+}
+
+.icons {
+    display: flex;
+    gap: $gap;
+    margin-block: 48px;
+    justify-content: center;
+    animation: slideIn 0.5s ease 0.3s forwards;
+    opacity: 0;
+}
+
+.link {
+    margin-bottom: 48px;
+    width: fit-content;
+    margin-inline: auto;
+    padding: 2px;
+
+    opacity: 0;
+    animation: slideIn 0.4s ease forwards;
+    
+    @for $i from 1 through 3 {
+        &:nth-child(#{$i}) {
+            animation-delay: #{$i * 0.1 + 0.4}s;
+        }
+    }
+}
+
+.icon {
+    right: 50px;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .link {
+        transition: $transition;
+
+        &:hover {
+            outline: 1px solid $text-accent;
+            outline-offset: 8px;
+
+            box-shadow: 0 0 0 1px $text-accent,
+        }
+    }
+}

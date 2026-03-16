@@ -54,3 +54,14 @@
     min-width: auto;
     width: 100%;
 }
+
+@media(max-width: 768px) {
+    .editmode input:not(:disabled) {
+        min-width: 100%;
+        max-width: auto;
+    }
+
+    .input.editmode {
+        min-width: 100%;
+    }
+}

@@ -24,3 +24,22 @@
     flex-direction: column;
     gap: 5px;
 }
+
+@media(max-width: 1024px) {
+    .auth {
+        max-width: 50%;
+    }
+}
+
+@media(max-width: 768px) {
+    .auth {
+        max-width: 60%;
+    }
+}
+
+@media(max-width: 576px) {
+    .auth {
+        max-width: 100%;
+        padding: 48px;
+    }
+}

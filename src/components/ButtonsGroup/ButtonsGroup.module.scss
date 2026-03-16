@@ -19,3 +19,10 @@
         }
     }
 }
+
+@media(max-width: 768px) {
+    .buttons {
+        flex-direction: column;
+        gap: $gap;
+    }
+}

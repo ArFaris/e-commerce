@@ -81,7 +81,7 @@ const CartData = ({product, count}: CartDataProps) => {
                 <div>
                     <Text view="p-14" color="secondary" weight="bold">{product.category_name}</Text>
                     <Text view="p-20">{product.title}</Text>
-                    <Text view="p-16" color="secondary" maxLines={1}>{product.subtitle}</Text>
+                    <Text view="p-16" color="secondary" maxLines={1} className={s.subtitle}>{product.subtitle}</Text>
                 </div>
 
                 <div className={s.actions}>

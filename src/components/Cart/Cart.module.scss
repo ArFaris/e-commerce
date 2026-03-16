@@ -1,4 +1,5 @@
 @import '/src/styles/variables.scss';
+@import '/src/styles/global.scss';
 
 .cart {
     position: fixed;
@@ -40,8 +41,37 @@
     }
 }
 
-.icon {
-    position: absolute;
-    top: 30px;
-    right: 25px;
+@media(max-width: 1280px) {
+    .cart {
+        width: 45vw;
+    }
+}
+
+@media(max-width: 1024px) {
+    .cart {
+        width: 50vw;
+    }
+}
+
+@media(max-width: 900px) {
+    .cart {
+        width: 100vw;
+        padding-inline: 10vw;
+    }
+}
+
+@media(max-width: 464px) {
+    .cart {
+        padding-inline: 24px;
+    }
+}
+
+@media(max-width: 375px) {
+    .cart {
+        padding-inline: 24px;
+
+        &__data {
+            gap: 24px;
+        }
+    }
 }

@@ -9,7 +9,6 @@ import Button from 'components/Button';
 import CloseIcon from 'components/icons/CloseIcon';
 import { useCartContext } from 'components/Header';
 import React from 'react';
-import { useNavigate } from 'react-router';
 
 type CartProps = {
     products?: CollectionModel<string, { product: Product; count: number; }>,
@@ -36,8 +35,6 @@ const Cart = ({products, className}: CartProps) => {
     const [finalSum, setFinalSum] = useState<string>('$0');
 
     const {isCartOpen, setIsCartOpen} = useCartContext();
-
-    const navigate = useNavigate();
 
     const handleCartClick = useCallback(() => {
         document.body.style.overflow = 'unset';
@@ -73,7 +70,7 @@ const Cart = ({products, className}: CartProps) => {
                 <CartAmountContext.Provider value={{totalAmounts, setTotalAmounts}}>
                     <div className={s.cart__overlay} onClick={handleCartClick}></div>
                     <div className={cn(s.cart, className)}>
-                        <CloseIcon className={s.icon} color="accent" onClick={handleCartClick}/>
+                        <CloseIcon className={s['close-icon']} color="accent" onClick={handleCartClick}/>
                         <Text view="title" className={s.cart__text}>Cart</Text>
                         <div className={s.cart__data}>
                             {

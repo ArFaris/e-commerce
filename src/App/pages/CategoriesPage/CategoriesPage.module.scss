@@ -2,8 +2,14 @@
 @import '/src/styles/global.scss';
 
 .container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 80px;
     margin-block: 80px;
+}
+
+@media(max-width: 1400px) {
+    .container {
+        gap: 50px;
+    }
 }

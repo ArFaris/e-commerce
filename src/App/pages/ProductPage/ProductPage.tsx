@@ -126,9 +126,9 @@ const ProductPage = () => {
                         <Text view="p-20" color="secondary">{product.subtitle}</Text>
                     </div>
 
-                    <div>
+                    <div className={styles.actions}>
                         <Text view="title">{product.price}</Text>
-                        <ButtonsGroup leftText="Buy Now" rightText="Add to Card" onRightClick={handleButtonClick}/>
+                        <ButtonsGroup className={styles.buttons} leftText="Buy Now" rightText="Add to Card" onRightClick={handleButtonClick}/>
                     </div>
                 </div>
             </section>
