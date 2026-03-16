@@ -11,8 +11,10 @@ const useCartWithStorage = (): CartProductsContextType => {
         const savedCart = localStorage.getItem('cart');
 
         if (savedCart) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setProductsInCart(JSON.parse(savedCart));
         }
+     
     }, []);
     
     useEffect(() => {

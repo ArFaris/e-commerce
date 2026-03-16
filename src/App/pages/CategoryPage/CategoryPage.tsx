@@ -8,17 +8,14 @@ import ProductFilter from 'components/ProductFilter';
 import { useEffect } from 'react';
 
 const CategoryPage = () => {
-    console.log('Render')
     const { name } = useParams<{name: string}>();
-    console.log(name)
+
 
     useEffect(() => {
-        console.log(categoryStore.category)
         if (!categoryStore.category) categoryStore.setCategory(name);
-    }, [])
+    }, [name])
 
     const category = categoryStore.category;
-    console.log(category);
     return (
         category && <section className={s.page}>
             <div className={s.page__title}>

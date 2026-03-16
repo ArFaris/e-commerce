@@ -35,10 +35,11 @@ const Cart = ({products, className}: CartProps) => {
     const [finalSum, setFinalSum] = useState<string>('$0');
 
     const {isCartOpen, setIsCartOpen} = useCartContext();
-
+   
     const handleCartClick = useCallback(() => {
         document.body.style.overflow = 'unset';
         setIsCartOpen(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -74,7 +75,7 @@ const Cart = ({products, className}: CartProps) => {
                         <Text view="title" className={s.cart__text}>Cart</Text>
                         <div className={s.cart__data}>
                             {
-                                products?.order.map((id) => <CartData key={id} count={products.entities[id].count} product={products.entities[id].product} 
+                                products?.order.map((id) => <CartData key={id} id={id} count={products.entities[id].count} product={products.entities[id].product} 
                                 price={products.entities[id].product.price}/>)
                             }
                         </div>

@@ -33,13 +33,11 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({className, options, value,
     const [isOpened, setIsOpened] = useState(false);
 
     const open = () => {
-        console.log('open');
         setIsOpened(true);
     }
 
     useEffect(() => {
         const handlerClick = (e: MouseEvent) => {
-            console.log('handler click')
             if (!wrapperRef.current?.contains(e.target as HTMLElement)) {
                 setIsOpened(false);
             }
@@ -52,8 +50,10 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({className, options, value,
         }
     }, []);
 
+     
     useEffect(() => {
         if (!isOpened) {
+             // eslint-disable-next-line react-hooks/set-state-in-effect
             setFilter('');
         }
     }, [isOpened]);
@@ -90,12 +90,6 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({className, options, value,
         },
         [disabled, onChange, value, selectedKeysSet]
     );
-
-    console.log(options, 'render options');
-    console.log(filteredOptions, 'filteredoptions');
-    console.log(filter)
-
-    console.log(isOpened, 'isOpened');
 
     return (
         <div ref={wrapperRef} className={cn(s['multi-dropdown'], className)}>

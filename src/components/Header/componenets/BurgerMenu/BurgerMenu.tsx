@@ -29,13 +29,11 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({
 BurgerMenuProps) => {
     useEffect(() => {
         const handleEscape = (e: KeyboardEvent) => {
-            console.log('escape')
             if (e.key === 'Escape') onClose();
         }
 
         let resizeTimer: number;
         const handleResize = () => {
-            console.log('resize')
             if (resizeTimer) {
                 clearTimeout(resizeTimer);
             }
@@ -48,7 +46,6 @@ BurgerMenuProps) => {
         }
 
         if (isOpen) {
-            console.log('is open')
             document.body.style.overflow = 'hidden';
             document.addEventListener('keydown', handleEscape);
             window.addEventListener('resize', handleResize);
@@ -63,7 +60,7 @@ BurgerMenuProps) => {
                 clearTimeout(resizeTimer);
             }
         }
-    }, [isOpen]);
+    }, [isOpen, onClose]);
 
     return createPortal(
         <div className={cn(s.menu, className, isOpen ? s.open : s.close)}>

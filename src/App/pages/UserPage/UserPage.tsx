@@ -11,12 +11,6 @@ import { UserShema } from 'shared/schemas/user.schema';
 import { ZodError } from 'zod';
 import { validation } from 'shared/utils/validation-error';
 
-interface InputsState {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-}
-
 const UserPage: React.FC = () => {
     const navigate = useNavigate();
     const [editMode, setEditMode] = useState<boolean>(false);
@@ -28,7 +22,7 @@ const UserPage: React.FC = () => {
             userStore.logout();
             navigate('/products');
         } catch(error) {
-            console.log(error);
+            console.error(error);
         }
     }
 
@@ -40,7 +34,7 @@ const UserPage: React.FC = () => {
             userStore.deleteUser(id);
             navigate('/products');
         } catch(error) {
-            console.log(error);
+            console.error(error);
         }
     }
 
@@ -67,7 +61,7 @@ const UserPage: React.FC = () => {
 
             await userStore.updateUser(id, inputs);
         } catch(error) {
-            console.log(error);
+            console.error(error);
         }
 
         setEditMode(false);
@@ -79,7 +73,7 @@ const UserPage: React.FC = () => {
                 await userStore.restoreSession();
                 setInputs({'firstName': userStore.user?.firstName, 'lastName': userStore.user?.lastName, 'email': userStore.user?.email}); 
             } catch(error) {
-                console.log(error);
+                console.error(error);
             };
         }
 
@@ -127,7 +121,8 @@ const UserPage: React.FC = () => {
                 <ButtonsGroup leftText={editMode ? 'Save changes' : 'Edit Profile'} 
                             rightText='Log out of your profile'
                             onLeftClick={!editMode ? () => edit() : () => saveChanges()} 
-                            onRightClick={logout}/>
+                            onRightClick={logout}
+                            className={s.buttons}/>
 
                 <Text className={s.delete} view='button' onClick={deleteUser}>Delete profile</Text>
             </main>

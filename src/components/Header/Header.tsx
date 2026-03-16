@@ -52,8 +52,7 @@ export const useCartContext = () => {
     return context;
 }
 
-const Header: React.FC<HeaderProps> = ({image='/public/logo.png', links=linksArr}: HeaderProps) => {
-    console.log('Header рендерится', new Date().toISOString());
+const Header: React.FC<HeaderProps> = ({image='/logo.png', links=linksArr}: HeaderProps) => {
     const navigate = useNavigate();
     const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
@@ -79,7 +78,6 @@ const Header: React.FC<HeaderProps> = ({image='/public/logo.png', links=linksArr
     }
 
     const handleLogoClick = () => {
-        console.log('link')
         navigate('/products');
     }
 

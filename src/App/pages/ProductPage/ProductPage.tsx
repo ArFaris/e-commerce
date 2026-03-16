@@ -117,7 +117,7 @@ const ProductPage = () => {
 
             <section className={styles.product}>
                 <div className={styles['product__image-wrapper']}>
-                    <img src={`/public/products/${product.image}.png`}/>
+                    <img src={`/products/${product.image}.png`}/>
                 </div>
 
                 <div className={styles.product__content}>
@@ -140,7 +140,7 @@ const ProductPage = () => {
                     {
                         cardsRecomended?.map(product => 
                                 <Card 
-                                image={`/public/products/${product.image}.png`}
+                                image={`/products/${product.image}.png`}
                                 captionSlot={<>{product.category_name}</>}
                                 title={<>{product.title}</>}
                                 subtitle={<>{product.subtitle}</>}

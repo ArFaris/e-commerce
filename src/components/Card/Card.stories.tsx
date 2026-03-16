@@ -1,6 +1,5 @@
-import React from 'react';
 import Button from '../Button';
-import Card, { CardProps } from './Card';
+import Card, { type CardProps } from './Card';
 
 export default {
   title: 'Card',

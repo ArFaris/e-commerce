@@ -3,6 +3,7 @@ export type CollectionModel<K extends string | number, T> = {
     entities: Record<K, T>
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getInitialCollectionModel = (): CollectionModel<any, any> => ({
     order: [],
     entities: {}
@@ -17,8 +18,6 @@ export const normalizeCollection = <K extends string | number, T>
         collection.order.push(id);
         collection.entities[id] = el;
     })
-
-    console.log(collection);
 
     return collection;
 }

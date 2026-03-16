@@ -79,10 +79,8 @@ class UserStore {
                                             .eq('email', email)
                                             .eq('password', password)
                                             .single()
-            console.log(user)
             if (!user) {
                 this._error = 'The user does not exist';
-                console.log("error");
                 return;
             }
 
@@ -164,6 +162,7 @@ class UserStore {
             localStorage.setItem('user', JSON.stringify(this._user));
         } catch(error) {
             localStorage.removeItem('user');
+            console.error(error);
         }
     }
 

@@ -5,7 +5,6 @@ import React from 'react';
 const UserIcon: React.FC<IconProps> = ({
     width = 30,
     height = 30,
-    color = 'header',
     ...props
 }: IconProps) => {
     return (

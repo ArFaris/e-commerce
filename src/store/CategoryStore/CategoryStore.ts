@@ -24,10 +24,9 @@ class CategoryStore {
                                     .from('categories')
                                     .select('*')
         if (data) {
-            console.log("data", data)
             this.setCategories(data);
         } else {
-            console.log(error);
+            console.error(error);
         }
     }
 
@@ -41,12 +40,9 @@ class CategoryStore {
 
     async setCategory(name?: string) {
         if (this._categories.length === 0) {
-            console.log("un")
             await this.loadCategories();
         }
-        console.log(this._categories)
         const category = this._categories.find(item => item.slug === name);
-        console.log(category)
         if (!category) {
             console.error("Несуществующая категория");
             return;

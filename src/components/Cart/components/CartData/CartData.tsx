@@ -6,20 +6,20 @@ import { useState, useEffect, useMemo } from 'react';
 import { useCartProducts } from "App/App";
 import CloseIcon from 'components/icons/CloseIcon';
 import { useCartAmount } from "components/Cart";
+import type { CollectionModel } from "shared/collection";
 
 type CartDataProps = {
     product: Product,
     price: string,
-    count: number
+    count: number,
+    id: string
 }
 
-const CartData = ({product, count}: CartDataProps) => {
-    console.log("product", product)
+const CartData = ({product, count, id}: CartDataProps) => {
     const { setProductsInCart } = useCartProducts();
     const { setTotalAmounts } = useCartAmount();
 
     const parsePriceFromSlot = (slot: string): number => {
-        console.log(slot)
         const priceValue = slot.slice(1);
         return Number(priceValue);
     }
@@ -40,11 +40,24 @@ const CartData = ({product, count}: CartDataProps) => {
 
         return () => {
             setTotalAmounts(prev => {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const { [product.id]: _, ...rest } = prev;
                 return {...rest}
             })
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [totalPrice, product.id]);
+
+    useEffect(() => {
+        setProductsInCart(prevCart => {
+            const newCart: CollectionModel<string, {product: Product, count: number}> = {...prevCart};
+
+            newCart.entities[id] = {product: product, count: currentCount};
+
+            return newCart;
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentCount])
 
     const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => 
     {
@@ -63,6 +76,7 @@ const CartData = ({product, count}: CartDataProps) => {
 
     const handleCloseClick = (product: Product) => {
         setProductsInCart(prevCart => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { [product.id]: removedItem, ...otherItems } = prevCart.entities;
 
             return {
@@ -75,7 +89,7 @@ const CartData = ({product, count}: CartDataProps) => {
     return (
         <article className={s.data}>
             <CloseIcon className={s.icon} color="secondary" onClick={() => handleCloseClick(product)}/>
-            <img src={`/public/products/${product.image}.png`} className={s.image}/>
+            <img src={`/products/${product.image}.png`} className={s.image}/>
 
             <div className={s.content}>
                 <div>

@@ -16,7 +16,7 @@ type ProductContainerProps = {
 }
 
 const ProductContainer: React.FC<ProductContainerProps> = ({category}: ProductContainerProps) => {
-    const {productsInCart, setProductsInCart} = useCartProducts();
+    const { setProductsInCart } = useCartProducts();
 
     useEffect(() => {
         const loadData = async () => {
@@ -32,7 +32,6 @@ const ProductContainer: React.FC<ProductContainerProps> = ({category}: ProductCo
             return;
         }
         e.stopPropagation();
-        console.log(productsInCart)
         setProductsInCart(prevCart => {
             const newCart: CollectionModel<string, {product: Product, count: number}> = {...prevCart};
 
@@ -62,7 +61,7 @@ const ProductContainer: React.FC<ProductContainerProps> = ({category}: ProductCo
                         <Card 
                         key={product.id}
                         className={styles.product}
-                        image={`/public/products/${product.image}.png`}
+                        image={`/products/${product.image}.png`}
                         captionSlot={<>{product.category_name}</>}
                         title={<>{product.title}</>}
                         subtitle={<>{product.subtitle}</>}
