@@ -34,11 +34,13 @@
         position: relative;
         cursor: pointer;
 
-        &:hover {
-            color: $text-accent;
+        @media(hover: hover) {
+            &:hover {
+                color: $text-accent;
 
-            &::after {
-                display: block;
+                &::after {
+                    display: block;
+                }
             }
         }
 
@@ -83,5 +85,20 @@
 @media(max-width: 768px) {
     .header__icons {
         display: none;
+    }
+
+    .header {
+        padding-inline: 24px;
+        height: 56px;
+
+        &__link {
+            &:active {
+                color: $text-accent;
+
+                &::after {
+                    display: block;
+                }
+            }
+        }
     }
 }

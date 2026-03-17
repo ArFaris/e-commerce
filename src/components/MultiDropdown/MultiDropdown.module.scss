@@ -32,8 +32,20 @@
             color: $text-accent;
         }
 
-        &:hover {
-            color: $text-accent;
+        @media(hover: hover) {
+            &:hover {
+                color: $text-accent;
+            }
+        }
+    }
+}
+
+@media(max-width: 768px) {
+    .multi-dropdown {
+        &__option {
+            &:active {
+                color: $text-accent;
+            }
         }
     }
 }

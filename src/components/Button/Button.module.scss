@@ -32,8 +32,10 @@
         color: var(--l-button-text);
     }
 
-    &:hover:not(:disabled) {
-        --l-button-background: #{$button-primary-bg-hover};
+    @media(hover: hover) {
+        &:hover:not(:disabled) {
+            --l-button-background: #{$button-primary-bg-hover};
+        }
     }
 
     &:active:not(:disabled) {
@@ -46,5 +48,13 @@
 
     &_disabled {
         --l-button-background: #{$button-primary-bg-disabled};
+    }
+}
+
+@media(max-width: 768px) {
+    .button {
+        &:active:not(:disabled) {
+            --l-button-background: #{$button-primary-bg-hover};
+        }
     }
 }

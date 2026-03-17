@@ -35,8 +35,10 @@
     align-items: center;
   }
 
-  &:hover {
-    box-shadow: $box-shadow
+  @media(hover: hover) {
+    &:hover {
+      box-shadow: $box-shadow
+    }
   }
 
   &__caption {
@@ -55,4 +57,14 @@
 .image__wrapper img {
   width: 100%;
   object-fit: cover;
+}
+
+@media(max-width: 768px) {
+    .card {
+      min-height: auto;
+
+      &:active {
+        box-shadow: $box-shadow;
+      }
+    }
 }

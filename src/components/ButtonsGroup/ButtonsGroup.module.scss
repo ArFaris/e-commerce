@@ -10,8 +10,10 @@
         border: 1px solid $text-secondary;
         background-color: transparent;
 
-        &:hover {
-            background-color: $button-primary-bg-hover;
+        @media(hover: hover) {
+            &:hover {
+                background-color: $button-primary-bg-hover;
+            }
         }
 
         &:active {
@@ -24,5 +26,11 @@
     .buttons {
         flex-direction: column;
         gap: $gap;
+
+        &--right {
+            &:active {
+                background-color: $button-primary-bg-hover;
+            }
+        }
     }
 }

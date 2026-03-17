@@ -38,8 +38,10 @@
         transition: all 0.5s ease;
         background-color: rgba(#b42432, 0.2);
 
-        &:hover:not(:disabled) {
-            background-color: rgba(#b02432d7, 0.3);
+        @media(hover: hover) {
+            &:hover:not(:disabled) {
+                background-color: rgba(#b02432d7, 0.3);
+            }
         }
 
         &:focus:not(:disabled), &:active:not(:disabled) {
@@ -63,5 +65,13 @@
 
     .input.editmode {
         min-width: 100%;
+    }
+    
+    .error {
+        input {
+            &:active:not(:disabled) {
+                background-color: rgba(#b02432d7, 0.3);
+            }
+        }
     }
 }

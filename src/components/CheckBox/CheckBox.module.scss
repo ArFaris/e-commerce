@@ -14,10 +14,18 @@
     }
 }
 
-.checkbox input:not(:disabled) + .checkbox__box:hover {
-    box-shadow: inset 0 0 0 1px $text-accent;
-}       
+@media(hover: hover) {
+    .checkbox input:not(:disabled) + .checkbox__box:hover {
+        box-shadow: inset 0 0 0 1px $text-accent;
+    }       
+}
 
 .checkbox input:disabled + .checkbox__box {
     opacity: 0.5;
+}
+
+@media(max-width: 768px) {
+    .checkbox input:not(:disabled) + .checkbox__box:active {
+        box-shadow: inset 0 0 0 1px $text-accent;
+    }       
 }
