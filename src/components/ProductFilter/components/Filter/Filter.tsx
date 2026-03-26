@@ -1,5 +1,6 @@
-import MultiDropdown from "components/MultiDropdown"
-import ProductsStore from "store/ProductsStore"
+// components/Filter/index.tsx
+import MultiDropdown from "components/MultiDropdown";
+import ProductsStore from "store/ProductsStore";
 import { type Option } from 'components/MultiDropdown';
 import Text from 'components/Text';
 import Input from "components/Input";
@@ -10,57 +11,104 @@ import CloseIcon from "components/icons/CloseIcon";
 import cn from 'classnames';
 import { observer } from "mobx-react-lite";
 import categoryStore from "store/CategoryStore";
-import { useMemo } from "react";
-import filterStore from 'store/FilterStore';
+import { useEffect, useState } from "react";
+import productFilterStore from 'store/ProductFilterStore';
 
 const Filter: React.FC = () => {
-    const handleMultiDropdownChange = (selectedOptions: Option[]) => {
-        ProductsStore.setCurrentOptions(selectedOptions);
+    const [priceFromValue, setPriceFromValue] = useState<string>('');
+    const [priceToValue, setPriceToValue] = useState<string>('');
 
-        if (selectedOptions.length === 0) {
-           ProductsStore.resetFilter();
-        } else {
-           ProductsStore.filterByOptions();
-        }
+    const handleMultiDropdownChange = (selectedOptions: Option[]) => {
+        productFilterStore.setSelectedItems(selectedOptions);
     }
 
     const getTitle = (options: Option[]): string => {
-        if (options.length === 0) return "Filter";
+        if (options.length === 0) return "Filter items";
 
         const title: string = options.map(option => option.value).join(', ');
-        return title;
+        return title.length > 30 ? title.slice(0, 30) + '...' : title;
     }
 
-    useMemo(() => {
+    useEffect(() => {
         const loadCategories = async () => {
-            await categoryStore.loadCategories()
+            await categoryStore.loadCategories();
+            productFilterStore.initializeCategories();
         }
 
         loadCategories();
     }, []);
 
     const handleCheckBoxChange = (id: string, isChecked: boolean) => {
-        console.log('is checked', isChecked)
-        console.log('id', id);
-        filterStore.setSelectedCategories(id, isChecked);
+        productFilterStore.setSelectedCategories(id, isChecked);
     }
+
+    const handlePriceFromChange = (value: string) => {
+        setPriceFromValue(value);
+        console.log(value)
+        const numValue = value ? Number(value) : null;
+        if (numValue !== null && !isNaN(numValue)) {
+            console.log('set')
+            productFilterStore.setPriceFrom(numValue);
+        } else if (value === '') {
+            productFilterStore.setPriceFrom(null);
+        }
+    }
+
+    const handlePriceToChange = (value: string) => {
+        setPriceToValue(value);
+        const numValue = value ? Number(value) : null;
+        if (numValue !== null && !isNaN(numValue)) {
+            productFilterStore.setPriceTo(numValue);
+        } else if (value === '') {
+            productFilterStore.setPriceTo(null);
+        }
+    }
+
+    const handleResetFilters = () => {
+        productFilterStore.resetFilters();
+        setPriceFromValue('');
+        setPriceToValue('');
+    }
+
+    const handleSaveChanges = () => {
+        productFilterStore.setIsOpen(false);
+    }
+
+    const categories = categoryStore.currentCategories();
+    const selectedCategories = productFilterStore.selectedCategories;
 
     return (
         <>
-            {filterStore.isOpen && (
+            {productFilterStore.isOpen && (
                 <>
                     <div className={s.cart__overlay}></div>
                     <aside className={s.filter}>
-                        <CloseIcon className={cn(s['close-icon'], s.filter__close)} color="accent" onClick={() => filterStore.setIsOpen(false)}/>
+                        <CloseIcon 
+                            className={cn(s['close-icon'], s.filter__close)} 
+                            color="accent" 
+                            onClick={() => productFilterStore.setIsOpen(false)}
+                        />
                         <Text view='title' className={s.title}>Filter</Text>
 
                         <div>
                             <Text view='subtitle' className={s.subtitle}>Price</Text>
                             <div className={s.price}>
                                 <Text view='p-18'>from</Text>
-                                    <Input className={s.input} placeholder="Initial sum" afterSlot={<></>}/>
+                                <Input 
+                                    className={s.input} 
+                                    placeholder="Initial sum" 
+                                    value={priceFromValue}
+                                    onChange={handlePriceFromChange}
+                                    afterSlot={<></>}
+                                />
                                 <Text view='p-18'>to</Text>
-                                    <Input className={s.input} placeholder="Final sum" afterSlot={<></>}/>
+                                <Input 
+                                    className={s.input} 
+                                    placeholder="Final sum" 
+                                    value={priceToValue}
+                                    onChange={handlePriceToChange}
+                                    afterSlot={<></>}
+                                />
                             </div>
                         </div>
 
@@ -68,9 +116,12 @@ const Filter: React.FC = () => {
 
                         <div className={s.categories}>
                             {
-                                categoryStore.currentCategories().map(category => (
+                                categories.map(category => (
                                     <div className={s.category} key={category.id}>
-                                        <CheckBox checked={filterStore.isCategoriesChecked[category.id]} onChange={(isChecked: boolean) => handleCheckBoxChange(category.id, isChecked)}/>
+                                        <CheckBox 
+                                            checked={selectedCategories[category.id] ?? true} 
+                                            onChange={(isChecked: boolean) => handleCheckBoxChange(category.id, isChecked)}
+                                        />
                                         <Text view='p-18'>{category.name}</Text>
                                     </div>
                                 ))
@@ -79,9 +130,21 @@ const Filter: React.FC = () => {
 
                         <Text view='subtitle' className={s.subtitle}>Items</Text>
                         
-                        <MultiDropdown className={s.items} options={ProductsStore.options} onChange={(e) => handleMultiDropdownChange(e)} getTitle={(options: Option[]) => getTitle(options)} value={ProductsStore.selectedOptions}/>
+                        <MultiDropdown 
+                            className={s.items} 
+                            options={ProductsStore.options} 
+                            onChange={handleMultiDropdownChange} 
+                            getTitle={getTitle} 
+                            value={productFilterStore.selectedItems}
+                        />
 
-                        <ButtonsGroup leftText="Save changes" rightText="Reset the filter" onRightClick={() => {}} onLeftClick={() => {}} className={s.buttons}/>
+                        <ButtonsGroup 
+                            leftText="Save changes" 
+                            rightText="Reset the filter" 
+                            onRightClick={handleResetFilters} 
+                            onLeftClick={handleSaveChanges} 
+                            className={s.buttons}
+                        />
                     </aside>
                 </>
             )}

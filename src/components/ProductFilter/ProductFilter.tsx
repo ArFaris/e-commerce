@@ -1,3 +1,4 @@
+// components/ProductFilter/index.tsx
 import Button from 'components/Button';
 import Input from 'components/Input';
 import styles from './ProductFilter.module.scss';
@@ -5,7 +6,7 @@ import { useState, useEffect } from 'react';
 import ProductsStore from 'store/ProductsStore';
 import { observer } from "mobx-react-lite";
 import Filter from './components/Filter';
-import filterStore from 'store/FilterStore';
+import productFilterStore from 'store/ProductFilterStore';
 
 const ProductFilter = () => {
     const [searchText, setSearchText] = useState('');
@@ -19,13 +20,12 @@ const ProductFilter = () => {
 
         const str = searchText.toLocaleLowerCase();
         ProductsStore.filterByName(str);
-
-        filterStore.setIsOpen(true);
     }
 
     useEffect(() => {
         if (searchText.trim() === '') {
             ProductsStore.resetFilter();
+            productFilterStore.applyFilters();
         }
     }, [searchText])
 
@@ -37,8 +37,14 @@ const ProductFilter = () => {
                     <Button onClick={handlerButtonClick}>Find now</Button>
                 </div>
 
-                <Input className={styles.filter} onClick={() => filterStore.setIsOpen(true)} value={''} placeholder="Filter Product" afterSlot={<></>}/>
-                {filterStore.isOpen && <Filter/>}
+                <Input 
+                    className={styles.filter} 
+                    onClick={() => productFilterStore.setIsOpen(true)} 
+                    value={productFilterStore.activeFiltersCount > 0 ? `Filter (${productFilterStore.activeFiltersCount})` : ''} 
+                    placeholder="Filter Product" 
+                    afterSlot={<></>}
+                />
+                <Filter/>
             </div>
         </>
     );
