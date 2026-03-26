@@ -42,17 +42,17 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({
         navigate(route);
     }
 
-    const registerUser = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    const signUser = async (e: React.SubmitEvent<HTMLFormElement>, requestType: string) => {
         e.preventDefault();
         setErrors({});
 
         const formData = new FormData(e.currentTarget);
 
         const user: UserCreate = {
-            email: formData.get('email') as string,
-            password: formData.get('password') as string,
-            firstName: formData.get('firstName') as string,
-            lastName: formData.get('lastName') as string,
+            email: formData.get('email')?.toString() || '',
+            password: formData.get('password')?.toString() || '',
+            firstName: formData.get('firstName')?.toString() || requestType == 'login' ? 'nullName' : '',
+            lastName: formData.get('lastName')?.toString() || requestType == 'login' ? 'nullName' : '',
         }
 
         try {
@@ -65,57 +65,38 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({
             }
         }
 
-        if (user.password !== formData.get('copyPassword')) {
-            setErrors({'password': 'Passwords must match', 'copyPassword': 'Passwords must match'});
-            return;
-        };
-        
-        try {
-            await userStore.register(user);
-            navigate('/user');
-        } catch(error) {
-            console.error(error);
-        }
-    }
-
-    const loginUser = async (e: React.SubmitEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setErrors({});
-
-        const formData = new FormData(e.currentTarget);
-
-        const request = {
-            email: formData.get('email') as string,
-            password: formData.get('password') as string
-        }
-
-        try {
-            UserShema.partial().parse(request);
-        } catch(error) {
-            if (error instanceof ZodError) {
-                const fieldErrors = validation(error);
-                setErrors(fieldErrors);
+        if (requestType === 'register') {
+            if (user.password !== formData.get('copyPassword')) {
+                setErrors({'password': 'Passwords must match', 'copyPassword': 'Passwords must match'});
                 return;
+            };       
+            
+            try {
+                await userStore.register(user);
+                navigate('/user');
+            } catch(error) {
+                console.error(error);
             }
-        }
-
-        try {
-            await userStore.login(request.email, request.password);
-            if (userStore.error) {
-                throw userStore.error;
+        } else {
+            console.log('login')
+            try {
+                await userStore.login(user.email, user.password);
+                navigate('/user');
+                if (userStore.error) {
+                    throw userStore.error;
+                }
+            } catch(error) {
+                console.error(error);
+                setErrors({'userNotFound': 'Account not found'});
             }
-            navigate('/user');
-        } catch(error) {
-            console.error(error);
-            setErrors({'userNotFound': 'Account not found'});
         }
     }
 
     const handleInputSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         if (title.toLocaleLowerCase() === 'registration') {
-            await registerUser(e);
+            await signUser(e, 'register');
         } else {
-            await loginUser(e);
+            await signUser(e, 'login');
         }
     }
 

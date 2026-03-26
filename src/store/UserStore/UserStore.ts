@@ -1,6 +1,7 @@
 import { action, computed, makeObservable, observable } from "mobx";
 import type { User, UserCreate} from 'types/user';
 import supabase from "lib/Supabase";
+import uiStore from "store/UIStore";
 
 type PrivateFields = '_isLoading' | '_error' | '_user';
 
@@ -27,7 +28,7 @@ class UserStore {
             loading: computed
         })
     }
-
+    
     
     async register(data: UserCreate) {
         const userData = {
@@ -37,6 +38,7 @@ class UserStore {
 
         try {
             this._isLoading = true;
+            uiStore.setLoading(true);
             this._error = null;
 
             const { data: existingUsers } = await supabase
@@ -65,6 +67,7 @@ class UserStore {
             throw error;
         } finally {
             this._isLoading = false;
+            uiStore.setLoading(false);
         }
     }
 
@@ -72,6 +75,8 @@ class UserStore {
         try {
             this._isLoading = true;
             this._error = null;
+
+            uiStore.setLoading(true);
 
             const { data: user } = await supabase    
                                             .from('users')
@@ -94,6 +99,7 @@ class UserStore {
             throw error;
         } finally {
             this._isLoading = false;
+            uiStore.setLoading(false);
         }
     }
 

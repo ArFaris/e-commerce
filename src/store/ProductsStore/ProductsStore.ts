@@ -4,6 +4,7 @@ import { type Option } from 'components/MultiDropdown';
 import { getInitialCollectionModel, normalizeCollection } from "shared/collection";
 import type { CollectionModel } from "shared/collection";
 import supabase from "lib/Supabase";
+import uiStore from "store/UIStore";
 
 type PrivateFields = '_filteredProducts' | '_allProducts' | '_isLoading' | '_error' | '_logError' | '_options' | '_productsCollection' | '_selectedOptions';
 
@@ -50,6 +51,8 @@ class ProductsStore {
         this._isLoading = true;
         this._error = null;
 
+        uiStore.setLoading(true);
+
         try {
             const { data, error } = await supabase
                                         .from('products')
@@ -60,6 +63,7 @@ class ProductsStore {
             
             runInAction(() => {
                 this._isLoading = false;
+                uiStore.setLoading(false);
                 if (category) {
                     this._allProducts = data?.filter((item: Product) => item.category_name.toLocaleLowerCase() === category.toLocaleLowerCase()) as Product[];
                 } else {
@@ -71,6 +75,7 @@ class ProductsStore {
         } catch(error) {
             runInAction(() => {
                 this._isLoading = false;
+                uiStore.setLoading(false);
 
                 if (error instanceof Error) this._error = error.message;
                 this._logError();

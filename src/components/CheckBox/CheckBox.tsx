@@ -15,7 +15,7 @@ const CheckBox = ({onChange, ...props}: CheckBoxProps) => {
     <label className={cn(props.className, s.checkbox)}>
       <input type="checkbox" onChange={(e) => onChange(e.target.checked)} {...props}/>
       <span className={s.checkbox__box}>
-        {props.checked && <CheckIcon width='40' height='40' color={props.disabled ? "secondary" : "accent"}/>}
+        {props.checked && <CheckIcon viewBox="0 0 24 24" width='40' height='40' color={props.disabled ? "secondary" : "accent"}/>}
       </span>
     </label>
   );

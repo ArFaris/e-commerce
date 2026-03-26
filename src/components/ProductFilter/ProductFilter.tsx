@@ -2,33 +2,16 @@ import Button from 'components/Button';
 import Input from 'components/Input';
 import styles from './ProductFilter.module.scss';
 import { useState, useEffect } from 'react';
-import MultiDropdown from 'components/MultiDropdown';
-import { type Option } from 'components/MultiDropdown';
 import ProductsStore from 'store/ProductsStore';
 import { observer } from "mobx-react-lite";
+import Filter from './components/Filter';
+import filterStore from 'store/FilterStore';
 
-const ProductContainer = () => {
+const ProductFilter = () => {
     const [searchText, setSearchText] = useState('');
 
     const handleInputChange = (currentValue: string) => {
         setSearchText(currentValue);
-    }
-
-    const handleMultiDropdownChange = (selectedOptions: Option[]) => {
-        ProductsStore.setCurrentOptions(selectedOptions);
-
-        if (selectedOptions.length === 0) {
-           ProductsStore.resetFilter();
-        } else {
-           ProductsStore.filterByOptions();
-        }
-    }
-
-    const getTitle = (options: Option[]): string => {
-        if (options.length === 0) return "Filter";
-
-        const title: string = options.map(option => option.value).join(', ');
-        return title;
     }
 
     const handlerButtonClick = () => {
@@ -36,6 +19,8 @@ const ProductContainer = () => {
 
         const str = searchText.toLocaleLowerCase();
         ProductsStore.filterByName(str);
+
+        filterStore.setIsOpen(true);
     }
 
     useEffect(() => {
@@ -52,10 +37,11 @@ const ProductContainer = () => {
                     <Button onClick={handlerButtonClick}>Find now</Button>
                 </div>
 
-                <MultiDropdown options={ProductsStore.options} onChange={(e) => handleMultiDropdownChange(e)} getTitle={(options: Option[]) => getTitle(options)} value={ProductsStore.selectedOptions}/>
+                <Input className={styles.filter} onClick={() => filterStore.setIsOpen(true)} value={''} placeholder="Filter Product" afterSlot={<></>}/>
+                {filterStore.isOpen && <Filter/>}
             </div>
         </>
     );
 }
 
-export default observer(ProductContainer);
+export default observer(ProductFilter);

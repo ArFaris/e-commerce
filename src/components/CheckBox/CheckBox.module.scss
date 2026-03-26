@@ -1,8 +1,10 @@
 @import '/src/styles/variables.scss';
 
-.checkbox input {
-    position: absolute;
-    appearance: none;
+.checkbox {
+    input {
+        position: absolute;
+        appearance: none;
+    }
 
     &__box {
         height: $checkbox-size;

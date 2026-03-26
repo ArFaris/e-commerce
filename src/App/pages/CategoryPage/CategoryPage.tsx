@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 const CategoryPage = () => {
     const { name } = useParams<{name: string}>();
 
-
     useEffect(() => {
         if (!categoryStore.category) categoryStore.setCategory(name);
     }, [name])
