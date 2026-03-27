@@ -74,6 +74,18 @@ const Filter: React.FC = () => {
         productFilterStore.setIsOpen(false);
     }
 
+    useEffect(() => {
+        if (productFilterStore.isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        return () => {
+            document.body.style.overflow = 'unset'
+        };
+    }, [productFilterStore.isOpen]);
+
     const categories = categoryStore.currentCategories();
     const selectedCategories = productFilterStore.selectedCategories;
 
@@ -81,7 +93,7 @@ const Filter: React.FC = () => {
         <>
             {productFilterStore.isOpen && (
                 <>
-                    <div className={s.cart__overlay}></div>
+                    <div className={s.overlay} onClick={() => productFilterStore.setIsOpen(false)}></div>
                     <aside className={s.filter}>
                         <CloseIcon 
                             className={cn(s['close-icon'], s.filter__close)} 
