@@ -47,12 +47,26 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({
         setErrors({});
 
         const formData = new FormData(e.currentTarget);
+        console.log('type')
+        console.log(requestType)
+
+        console.log('inner first name')
+        console.log(formData.get('firstName')?.toString())
+
+        console.log('isLogin')
+        console.log(requestType === 'login' ? 'nullName' : '')
+
+        console.log('isLogin2')
+        console.log(requestType === 'login')
+
+        console.log('final')
+        console.log(formData.get('lastName')?.toString() ?? requestType === 'login' ? 'nullName' : '')
 
         const user: UserCreate = {
             email: formData.get('email')?.toString() || '',
             password: formData.get('password')?.toString() || '',
-            firstName: formData.get('firstName')?.toString() || requestType == 'login' ? 'nullName' : '',
-            lastName: formData.get('lastName')?.toString() || requestType == 'login' ? 'nullName' : '',
+            firstName: formData.get('firstName')?.toString() ?? (requestType === 'login' ? 'nullName' : ''),
+            lastName: formData.get('lastName')?.toString() ?? (requestType === 'login' ? 'nullName' : ''),
         }
 
         try {
@@ -65,7 +79,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({
             }
         }
 
-        if (requestType === 'register') {
+        if (requestType === 'registration') {
             if (user.password !== formData.get('copyPassword')) {
                 setErrors({'password': 'Passwords must match', 'copyPassword': 'Passwords must match'});
                 return;
@@ -94,7 +108,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({
 
     const handleInputSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         if (title.toLocaleLowerCase() === 'registration') {
-            await signUser(e, 'register');
+            await signUser(e, 'registration');
         } else {
             await signUser(e, 'login');
         }
