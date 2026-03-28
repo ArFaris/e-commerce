@@ -1,26 +1,30 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import path from 'path';
-import tsconfig from './tsconfig.app.json';
 
-const SRC_PATH = path.resolve(__dirname, 'src');
-
-const parseTsConfigPaths = (paths: Record<string, string[]>): Record<string, string> => {
-  const webpackConfigAliases: Record<string, string> = {};
-
-  Object.entries(paths).forEach(([alias, paths]) => {
-    const aliasPath = paths[0].replace(/[^a-zA-Z]/g, '');
-
-    webpackConfigAliases[alias] = path.join(SRC_PATH, aliasPath);
-  });
-
-  return webpackConfigAliases;
-};
-
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: parseTsConfigPaths(tsconfig.compilerOptions.paths),
+    alias: {
+      'lib': path.resolve(__dirname, 'src/lib'),
+      'components': path.resolve(__dirname, 'src/components'),
+      'App': path.resolve(__dirname, 'src/App'),
+      'config': path.resolve(__dirname, 'src/config'),
+      'hooks': path.resolve(__dirname, 'src/hooks'),
+      'shared': path.resolve(__dirname, 'src/shared'),
+      'store': path.resolve(__dirname, 'src/store'),
+      'styles': path.resolve(__dirname, 'src/styles'),
+      'types': path.resolve(__dirname, 'src/types'),
+      'utils': path.resolve(__dirname, 'src/utils'),
+      'public': path.resolve(__dirname, 'public'),
+    },
   },
-})
+
+  server: {
+    port: 5173,
+    open: true,
+  },
+  build: {
+    sourcemap: true,
+  },
+});
