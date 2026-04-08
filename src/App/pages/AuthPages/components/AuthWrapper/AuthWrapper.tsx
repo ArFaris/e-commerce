@@ -87,6 +87,11 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({
             
             try {
                 await userStore.register(user);
+                
+                if (userStore.error) {
+                    throw userStore.error;
+                }
+                
                 navigate('/user');
             } catch(error) {
                 console.error(error);
@@ -95,10 +100,12 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({
             console.log('login')
             try {
                 await userStore.login(user.email, user.password);
-                navigate('/user');
+
                 if (userStore.error) {
                     throw userStore.error;
                 }
+
+                navigate('/user');
             } catch(error) {
                 console.error(error);
                 setErrors({'userNotFound': 'Account not found'});
